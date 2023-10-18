@@ -1,0 +1,1 @@
+web: server/target/universal/stage/bin/ticketing-server -Dhttp.port=${PORT}
