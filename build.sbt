@@ -27,10 +27,10 @@ lazy val server = (project in file("server"))
       "javax.xml.bind" % "jaxb-api" % "2.2.12",
       specs2 % Test
     )
-    Test / javaOptions ++= Seq(
-      "--add-exports=java.base/sun.security.x509=ALL-UNNAMED",
-      "--add-opens=java.base/sun.security.ssl=ALL-UNNAMED" // Could be needed as well in some cases
-    ),
+    // Test / javaOptions ++= Seq(
+    //   "--add-exports=java.base/sun.security.x509=ALL-UNNAMED",
+    //   "--add-opens=java.base/sun.security.ssl=ALL-UNNAMED" // Could be needed as well in some cases
+    // ),
   )
   .enablePlugins(PlayScala)
   .dependsOn(sharedJvm)

@@ -2,8 +2,11 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Home page
-GET        /                             controllers.Application.index
+GET        /                             controllers.Application.login
+
+GET        /login                        controllers.AuthenticationController.loginPage  
+POST       /login                        controllers.AuthenticationController.handleLogin
+
 
 # Prefix must match `play.assets.urlPrefix`
 GET        /assets/*file                 controllers.Assets.at(file)

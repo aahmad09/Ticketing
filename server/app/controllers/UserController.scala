@@ -1,5 +1,3 @@
 package controllers
 // For user accounts, authentication, registration etc.
-class UserController {
-  
-}
+case class User(id: Long, email: String, password: String)

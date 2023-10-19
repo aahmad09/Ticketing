@@ -13,4 +13,8 @@ class Application @Inject() (cc: ControllerComponents)
     Ok(views.html.index(SharedMessages.itWorks))
   }
 
+  def login = Action {
+    Redirect(routes.AuthenticationController.loginPage)
+  }
+
 }
