@@ -1,0 +1,8 @@
+@()(implicit request: RequestHeader, flash: Flash)
+
+@main("testing_page"){
+    <div id="react-root">page for testing purposes only.</div>
+    <input type="hidden" id="csrfToken" value="helper.CSRF.getToken.value">
+    <script type="module" src="@routes.Assets.versioned("javascript/pages/ReactTest.js")"></script>
+
+}   

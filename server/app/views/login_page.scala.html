@@ -5,7 +5,7 @@
 @import helper._
 
 @form(routes.AuthenticationController.handleLogin) {
-@inputText(loginForm("email"))
-@inputPassword(loginForm("password"))
-<input type="submit" value="Login">
+    @inputText(loginForm("email"))
+    @inputPassword(loginForm("password"))
+    <input type="submit" value="Login">
 }

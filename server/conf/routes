@@ -8,6 +8,11 @@ GET        /login                        controllers.AuthenticationController.lo
 POST       /login                        controllers.AuthenticationController.handleLogin
 
 
+# Testing
+GET        /load                         controllers.Application.load
+GET        /testing                      controllers.Application.testing
+
+
 # Prefix must match `play.assets.urlPrefix`
 GET        /assets/*file                 controllers.Assets.at(file)
 GET        /versionedAssets/*file        controllers.Assets.versioned(path="/public", file: Asset)
