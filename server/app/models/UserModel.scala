@@ -68,4 +68,5 @@ class UserModel(db: Database)(implicit ec: ExecutionContext) {
   }
 
   // Additional methods as needed
+
 }
