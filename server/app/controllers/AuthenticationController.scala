@@ -12,6 +12,7 @@ import models.LoginData
 import scala.concurrent.Future
 import views.html.defaultpages.error
 import play.api.libs.json._
+import models._
 
 class AuthenticationController @Inject() (
     val controllerComponents: ControllerComponents
@@ -33,29 +34,20 @@ class AuthenticationController @Inject() (
     request.session.get("email").map(f).getOrElse(Ok(Json.toJson(Seq.empty[String])))
   }
 
-  val loginForm: Form[LoginData] = Form(
-    mapping(
-      "email" -> email,
-      "password" -> nonEmptyText
-    )(LoginData.apply)(LoginData.unapply)
-  )
-
   def loginPage = Action { implicit request =>
-    Ok(views.html.login_page(loginForm))
+    Ok(views.html.loginPage())
   }
 
   def handleLogin = Action.async { implicit request =>
-    loginForm
-      .bindFromRequest()
-      .fold(  
-        errorForm => {
-          // Handle form errors
-          Future.successful(BadRequest(views.html.login_page(errorForm)))
-        },
-        data => {
+    Future.successful(
+      withJsonBody[LoginData] { args => 
+        if (UserModel.validateLogin(args.email, args.password)) {
           // check the submitted email and password against your database, set up a session if the credentials are valid, or render an error message if they're not.
-          Future.successful(Ok(views.html.index(SharedMessages.itWorks)).withSession("email" -> data.email, "csrfToken" -> play.filters.csrf.CSRF.getToken.map(_.value).getOrElse("")))
+          Ok(views.html.index(SharedMessages.itWorks)).withSession("email" -> args.email, "csrfToken" -> play.filters.csrf.CSRF.getToken.map(_.value).getOrElse(""))
+        } else {
+          BadRequest(views.html.loginPage())
         }
-      )
+      }
+    )
   }
 }

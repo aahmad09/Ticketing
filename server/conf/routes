@@ -10,7 +10,6 @@ POST       /login                        controllers.AuthenticationController.ha
 
 # Testing
 GET        /load                         controllers.Application.load
-GET        /testing                      controllers.Application.testing
 
 
 # Prefix must match `play.assets.urlPrefix`

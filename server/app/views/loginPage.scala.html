@@ -1,0 +1,8 @@
+@()(implicit request: RequestHeader, flash: Flash)
+
+@main("loginPage"){
+    <input type="hidden" id="csrfToken" value="helper.CSRF.getToken.value">
+    <div id="react-root">Login Page</div>
+    <script type="module" src="@routes.Assets.versioned("javascript/pages/LoginPage.js")"></script>
+
+}   
