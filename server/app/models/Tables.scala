@@ -87,8 +87,8 @@ trait Tables {
     /** Database column image SqlType(text), Default(None) */
     val image: Rep[Option[String]] = column[Option[String]]("image", O.Default(None))
 
-    /** Foreign key referencing Users (database name fk_orgid) */
-    lazy val usersFk = foreignKey("fk_orgid", orgid, Users)(r => r.userid, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.NoAction)
+    /** Foreign key referencing Users (database name events_orgid_fkey) */
+    lazy val usersFk = foreignKey("events_orgid_fkey", orgid, Users)(r => r.userid, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.NoAction)
   }
   /** Collection-like TableQuery object for table Events */
   lazy val Events = new TableQuery(tag => new Events(tag))
