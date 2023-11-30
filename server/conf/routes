@@ -6,15 +6,12 @@
 # Home page
 GET        /                             controllers.Application.login
 
-
+# Auth
 GET        /login                        controllers.AuthenticationController.loginPage
 POST       /handleLogin                  controllers.AuthenticationController.handleLogin
 GET        /register                     controllers.AuthenticationController.registerPage
 POST       /handleRegistration           controllers.AuthenticationController.handleRegistration
 
-
-# Testing
-GET        /load                         controllers.Application.load
 
 # Prefix must match `play.assets.urlPrefix`
 GET        /assets/*file                 controllers.Assets.at(file)

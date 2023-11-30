@@ -9,7 +9,7 @@ class LoginPage extends React.Component {
         this.login = (params) => {
             fetch("handleLogin", {
                 method: "POST",
-                headers: {'Content-Type': 'application/json'},
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(params)
             }).then(res => res.json()).then(data => {
                 if (data) {
@@ -20,11 +20,11 @@ class LoginPage extends React.Component {
     }
 
     render() {
-        return ce('div', null, 
+        return ce('div', null,
             ce('h2', null, "Login: "),
-            ce(LoginField, {submit: this.login}, null),
+            ce(LoginField, { submit: this.login }, null),
             ce('hr', null, null),
-            ce('h2', null, "Don't have a login? ", ce('a', {href: 'register'}, "Sign up here."))
+            ce('h2', null, "Don't have a login? ", ce('a', { href: 'register' }, "Sign up here."))
         )
     }
 }

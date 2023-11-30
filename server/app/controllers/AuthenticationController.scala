@@ -45,45 +45,50 @@ class AuthenticationController @Inject() (
     Ok(views.html.registerPage())
   }
 
-  def handleLogin = Action.async { implicit request =>
-    request.body.asJson
-      .map { json =>
-        json
-          .validate[LoginData]
-          .fold(
-            invalid => {
-              Future.successful(BadRequest("Invalid JSON")) // Handle bad JSON
-            },
-            args => {
-              userModel.validateUser(args.email, args.password).flatMap {
-                case Some(userId) =>
-                  Future.successful(
-                    Ok(views.html.index(SharedMessages.itWorks))
-                      .withSession("email" -> args.email)
-                  )
-                case None =>
-                  Future.successful(BadRequest("Invalid credentials"))
-              }
-            }
-          )
-      }
-      .getOrElse(
-        Future.successful(Redirect(routes.Application.load))
-      ) // Handle missing JSON body
+  def handleLogin = Action.async(parse.json) { implicit request =>
+    request.body
+      .validate[LoginData]
+      .fold(
+        invalid =>
+          Future.successful(
+            BadRequest(
+              Json.obj("status" -> "error", "message" -> "Invalid JSON format")
+            )
+          ),
+        loginData => {
+          userModel.validateUser(loginData.email, loginData.password).map {
+            case Some(userId) =>
+              Ok(
+                Json.obj("status" -> "success", "message" -> "Login successful")
+              )
+                .withSession("email" -> loginData.email) // Set session
+            case None =>
+              BadRequest(
+                Json
+                  .obj("status" -> "error", "message" -> "Invalid credentials")
+              )
+          }
+        }
+      )
   }
 
   def handleRegistration = Action.async(parse.json) { implicit request =>
     request.body
       .validate[RegistrationData]
       .fold(
-        errors => Future.successful(BadRequest("Invalid data")),
-        data => {
+        errors =>
+          Future.successful(
+            BadRequest(
+              Json.obj("status" -> "error", "message" -> "Invalid JSON format")
+            )
+          ),
+        registrationData => {
           userModel
             .createUser(
-              data.name,
-              data.email,
-              data.password,
-              Some(data.role),
+              registrationData.name,
+              registrationData.email,
+              registrationData.password,
+              Some(registrationData.role),
               None
             )
             .map {
@@ -91,21 +96,21 @@ class AuthenticationController @Inject() (
                 Ok(
                   Json.obj(
                     "status" -> "success",
-                    "message" -> "User registered successfully."
+                    "message" -> "User registered successfully",
+                    "userId" -> userId
                   )
                 )
               case None =>
                 BadRequest(
                   Json.obj(
                     "status" -> "error",
-                    "message" -> "User already exists."
+                    "message" -> "User already exists"
                   )
                 )
             }
         }
       )
   }
-
   def logout = Action { implicit request =>
     Redirect(routes.AuthenticationController.loginPage).withNewSession.flashing(
       "success" -> "You've been logged out"
