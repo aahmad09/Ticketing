@@ -1,0 +1,19 @@
+body {
+    background-color: #EFE6D9;
+    font-family: 'Bebas Neue', sans-serif;
+    /*font-family: 'Montserrat', sans-serif;*/
+    margin: 0;
+    color: #3B2C26; /* Default text color */
+  }
+.login_area{
+    width:100%;
+    max-width: 400px;
+    background-color: beige;
+
+
+}
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+

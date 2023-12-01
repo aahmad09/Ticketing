@@ -29,8 +29,8 @@ class Application @Inject() (cc: ControllerComponents)
     Redirect(routes.AuthenticationController.loginPage)
   }
 
-  def attendeeHome = Action {
-    Ok(views.html.index(SharedMessages.itWorks))
+  def home = Action { implicit request =>
+    Ok(views.html.attendeeHome())
   }
 
 }
