@@ -132,19 +132,18 @@ trait Tables {
    *  @param name Database column name SqlType(varchar), Length(255,true)
    *  @param email Database column email SqlType(varchar), Length(255,true)
    *  @param role Database column role SqlType(varchar), Length(50,true), Default(None)
-   *  @param password Database column password SqlType(varchar), Length(255,true)
-   *  @param profilepic Database column profilepic SqlType(text), Default(None) */
-  case class UsersRow(userid: Int, name: String, email: String, role: Option[String] = None, password: String, profilepic: Option[String] = None)
+   *  @param password Database column password SqlType(varchar), Length(255,true) */
+  case class UsersRow(userid: Int, name: String, email: String, role: Option[String] = None, password: String)
   /** GetResult implicit for fetching UsersRow objects using plain SQL queries */
   implicit def GetResultUsersRow(implicit e0: GR[Int], e1: GR[String], e2: GR[Option[String]]): GR[UsersRow] = GR{
     prs => import prs._
-    UsersRow.tupled((<<[Int], <<[String], <<[String], <<?[String], <<[String], <<?[String]))
+    UsersRow.tupled((<<[Int], <<[String], <<[String], <<?[String], <<[String]))
   }
   /** Table description of table users. Objects of this class serve as prototypes for rows in queries. */
   class Users(_tableTag: Tag) extends profile.api.Table[UsersRow](_tableTag, "users") {
-    def * = (userid, name, email, role, password, profilepic).<>(UsersRow.tupled, UsersRow.unapply)
+    def * = (userid, name, email, role, password).<>(UsersRow.tupled, UsersRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = ((Rep.Some(userid), Rep.Some(name), Rep.Some(email), role, Rep.Some(password), profilepic)).shaped.<>({r=>import r._; _1.map(_=> UsersRow.tupled((_1.get, _2.get, _3.get, _4, _5.get, _6)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = ((Rep.Some(userid), Rep.Some(name), Rep.Some(email), role, Rep.Some(password))).shaped.<>({r=>import r._; _1.map(_=> UsersRow.tupled((_1.get, _2.get, _3.get, _4, _5.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
     /** Database column userid SqlType(serial), AutoInc, PrimaryKey */
     val userid: Rep[Int] = column[Int]("userid", O.AutoInc, O.PrimaryKey)
@@ -156,8 +155,6 @@ trait Tables {
     val role: Rep[Option[String]] = column[Option[String]]("role", O.Length(50,varying=true), O.Default(None))
     /** Database column password SqlType(varchar), Length(255,true) */
     val password: Rep[String] = column[String]("password", O.Length(255,varying=true))
-    /** Database column profilepic SqlType(text), Default(None) */
-    val profilepic: Rep[Option[String]] = column[Option[String]]("profilepic", O.Default(None))
 
     /** Uniqueness Index over (email) (database name users_email_key) */
     val index1 = index("users_email_key", email, unique=true)

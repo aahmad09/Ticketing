@@ -21,9 +21,8 @@ class UserModel(db: Database)(implicit ec: ExecutionContext) {
       email: String,
       password: String,
       role: Option[String],
-      profilePic: Option[String]
   ): Future[Option[Int]] = {
-    val newUser = UsersRow(-1, name, email, role, password, profilePic)
+    val newUser = UsersRow(-1, name, email, role, password)
     val insertQuery = (Users returning Users.map(_.userid)) += newUser
     val existingUserQuery = Users.filter(_.email === email).exists.result
 
@@ -46,14 +45,13 @@ class UserModel(db: Database)(implicit ec: ExecutionContext) {
       email: String,
       password: String,
       role: Option[String],
-      profilePic: Option[String]
   ): Future[Boolean] = {
     val updateQuery = Users
       .filter(_.userid === userId)
       .map(user =>
-        (user.name, user.email, user.password, user.role, user.profilepic)
+        (user.name, user.email, user.password, user.role)
       )
-      .update((name, email, password, role, profilePic))
+      .update((name, email, password, role))
 
     db.run(updateQuery).map(_ > 0)
   }

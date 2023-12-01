@@ -1,8 +1,9 @@
-import LoginField from '../components/LoginField.js'
+import RegistrationField from '../components/RegistrationField.js'
 
 const ce = React.createElement
 
-const csrfToken = document.getElementById("csrfToken").value;
+const attendeeHomeRoute = document.getElementById("AttendeeHomeRoute").value;
+const LoginRoute = document.getElementById("LoginRoute").value;
 
 class RegisterPage extends React.Component {
     constructor(props) {
@@ -16,9 +17,10 @@ class RegisterPage extends React.Component {
                 body: JSON.stringify(params)
             }).then(res => res.json()).then(data => {
                 if (data) {
-                    this.relocate("home");
+                    console.log(data);
+                    fetch(attendeeHomeRoute);
                 } else {
-                    this.relocate("usernametaken")
+                    fetch(LoginRoute);
                 }
             })
         }
@@ -27,7 +29,7 @@ class RegisterPage extends React.Component {
     render() {
         return ce('div', null, 
             ce('h2', null, "Create an Account:"),
-            ce(LoginField, {submit: this.newUser}, null)
+            ce(RegistrationField, {submit: this.newUser}, null)
         )
     }
 }

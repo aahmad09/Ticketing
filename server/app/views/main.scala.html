@@ -7,6 +7,8 @@
     <title>@title</title>
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
     <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+    <input type="hidden" id="AttendeeHomeRoute" value="@routes.Application.attendeeHome">
+    <input type="hidden" id="LoginRoute" value="@routes.AuthenticationController.loginPage">
 
     <!-- Libraries for React -->
     <script src="https://unpkg.com/react@@16/umd/react.development.js" crossorigin></script>
