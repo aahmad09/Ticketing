@@ -12,6 +12,8 @@ POST       /handleLogin                  controllers.AuthenticationController.ha
 GET        /register                     controllers.AuthenticationController.registerPage
 POST       /handleRegistration           controllers.AuthenticationController.handleRegistration
 
+# User
+GET        /attendeeHome                 controllers.Application.attendeeHome
 
 # Prefix must match `play.assets.urlPrefix`
 GET        /assets/*file                 controllers.Assets.at(file)

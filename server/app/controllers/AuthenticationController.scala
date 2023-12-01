@@ -89,7 +89,6 @@ class AuthenticationController @Inject() (
               registrationData.email,
               registrationData.password,
               Some(registrationData.role),
-              None
             )
             .map {
               case Some(userId) =>
