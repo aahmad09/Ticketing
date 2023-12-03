@@ -32,5 +32,4 @@ class Application @Inject() (cc: ControllerComponents)
   def home = Action { implicit request =>
     Ok(views.html.attendeeHome())
   }
-
 }

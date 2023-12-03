@@ -13,7 +13,8 @@ GET        /register                     controllers.AuthenticationController.re
 POST       /handleRegistration           controllers.AuthenticationController.handleRegistration
 
 # User
-GET        /attendeeHome                 controllers.Application.attendeeHome
+GET        /attendeeHome                 controllers.UserController.attendeeHome
+
 
 
 # Prefix must match `play.assets.urlPrefix`
