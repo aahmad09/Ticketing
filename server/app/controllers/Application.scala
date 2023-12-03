@@ -29,6 +29,12 @@ class Application @Inject() (cc: ControllerComponents)
     Redirect(routes.AuthenticationController.loginPage)
   }
 
+<<<<<<< HEAD
 
+=======
+  def home = Action { implicit request =>
+    Ok(views.html.attendeeHome())
+  }
+>>>>>>> 297346b1738d12948f1be4aac3010c2888e78369
 
 }
