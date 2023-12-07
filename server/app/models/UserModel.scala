@@ -65,6 +65,17 @@ class UserModel(db: Database)(implicit ec: ExecutionContext) {
     db.run(Users.result)
   }
 
-  // Additional methods as needed
+  def registerForEvent(userId: Int, eventId: Int): Future[Boolean] = {
+    // Create a new EventattendeesRow object
+    val newAttendee = EventattendeesRow(eventid = eventId, userid = userId)
+
+    // Define the insert query
+    val insertQuery = Eventattendees += newAttendee
+
+    // Execute the query
+    db.run(insertQuery).map(_ > 0) // Returns true if the insert is successful
+  }
+
+
 
 }
