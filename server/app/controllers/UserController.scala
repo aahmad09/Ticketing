@@ -21,83 +21,83 @@ class UserController @Inject()(
     private val userModel = new UserModel(db)
     private val eventModel = new EventModel(db)
 
-    implicit val timestampFormat: Format[Timestamp] = new Format[Timestamp] {
-        def writes(ts: Timestamp): JsValue = JsString(ts.toString)
-        def reads(json: JsValue): JsResult[Timestamp] = json match {
-            case JsString(s) => JsSuccess(Timestamp.valueOf(s))
-            case _ => JsError(Seq(JsPath() -> Seq(JsonValidationError("error.expected.jsstring"))))
-        }
-    }
+    // implicit val timestampFormat: Format[Timestamp] = new Format[Timestamp] {
+    //     def writes(ts: Timestamp): JsValue = JsString(ts.toString)
+    //     def reads(json: JsValue): JsResult[Timestamp] = json match {
+    //         case JsString(s) => JsSuccess(Timestamp.valueOf(s))
+    //         case _ => JsError(Seq(JsPath() -> Seq(JsonValidationError("error.expected.jsstring"))))
+    //     }
+    // }
 
-    // Custom Writes for EventsRow
-    implicit val eventsRowWrites: Writes[EventsRow] = new Writes[EventsRow] {
-        def writes(event: EventsRow) = Json.obj(
-            "eventId" -> event.eventid,
-            "orgId" -> event.orgid,
-            "name" -> event.name,
-            "date" -> event.date.toString,
-            "location" -> event.location,
-            "price" -> event.price,
-            "description" -> event.description,
-            "image" -> event.image
-        )
-    }
+    // // Custom Writes for EventsRow
+    // implicit val eventsRowWrites: Writes[EventsRow] = new Writes[EventsRow] {
+    //     def writes(event: EventsRow) = Json.obj(
+    //         "eventId" -> event.eventid,
+    //         "orgId" -> event.orgid,
+    //         "name" -> event.name,
+    //         "date" -> event.date.toString,
+    //         "location" -> event.location,
+    //         "price" -> event.price,
+    //         "description" -> event.description,
+    //         "image" -> event.image
+    //     )
+    // }
 
-    // Implicit Reads for JSON conversions
-    implicit val eventReads: Reads[EventData] = Json.reads[EventData]
-    implicit val registrationReads: Reads[EventRegistrationData] = Json.reads[EventRegistrationData]
+    // // Implicit Reads for JSON conversions
+    // implicit val eventReads: Reads[EventData] = Json.reads[EventData]
+    // implicit val registrationReads: Reads[EventRegistrationData] = Json.reads[EventRegistrationData]
     
-    // Endpoint to view all listed events
-    def listEvents = Action.async { implicit request =>
-        eventModel.getAllEvents().map { events =>
-            Ok(Json.toJson(events))  // This will now work with the custom Writes
-        }
+    // // Endpoint to view all listed events
+    // def listEvents = Action.async { implicit request =>
+    //     eventModel.getAllEvents().map { events =>
+    //         Ok(Json.toJson(events))  // This will now work with the custom Writes
+    //     }
+    // }
+
+    def attendeeHome = Action { implicit request =>
+        Ok(views.html.attendeeHome())
     }
 
-    def attendeeHome = Action {
-        Ok(views.html.index(SharedMessages.itWorks))
-    }
+    // // Endpoint to register for an event
+    // def registerForEvent = Action.async(parse.json) { implicit request =>
+    //     request.body.validate[EventRegistrationData].fold(
+    //         errors => Future.successful(BadRequest("Invalid registration data")),
+    //         registration => {
+    //             userModel.registerForEvent(registration.userId, registration.eventId).map { registered =>
+    //                 if(registered) Ok("Registration successful")
+    //                 else BadRequest("Registration failed")
+    //             }
+    //         }
+    //     )
+    // }
 
-    // Endpoint to register for an event
-    def registerForEvent = Action.async(parse.json) { implicit request =>
-        request.body.validate[EventRegistrationData].fold(
-            errors => Future.successful(BadRequest("Invalid registration data")),
-            registration => {
-                userModel.registerForEvent(registration.userId, registration.eventId).map { registered =>
-                    if(registered) Ok("Registration successful")
-                    else BadRequest("Registration failed")
-                }
-            }
-        )
-    }
+    // // Endpoint to view user's tickets
+    // def viewTickets(userId: Long) = Action.async { implicit request =>
+    //     userModel.getUserTickets(userId).map { tickets =>
+    //         Ok(Json.toJson(tickets))
+    //     }
+    // }
 
-    // Endpoint to view user's tickets
-    def viewTickets(userId: Long) = Action.async { implicit request =>
-        userModel.getUserTickets(userId).map { tickets =>
-            Ok(Json.toJson(tickets))
-        }
-    }
+    // // For Organizers
+    // // Endpoint to create an event
+    // def createEvent = Action.async(parse.json) { implicit request =>
+    //     request.body.validate[Event].fold(
+    //         errors => Future.successful(BadRequest("Invalid event data")),
+    //         event => {
+    //             eventModel.createEvent(event).map { created =>
+    //                 if(created) Ok("Event created successfully")
+    //                 else BadRequest("Event creation failed")
+    //             }
+    //         }
+    //     )
+    // }
 
-    // For Organizers
-    // Endpoint to create an event
-    def createEvent = Action.async(parse.json) { implicit request =>
-        request.body.validate[Event].fold(
-            errors => Future.successful(BadRequest("Invalid event data")),
-            event => {
-                eventModel.createEvent(event).map { created =>
-                    if(created) Ok("Event created successfully")
-                    else BadRequest("Event creation failed")
-                }
-            }
-        )
-    }
-
-    // Endpoint to view the list of attendees for an event
-    def viewAttendees(eventId: Long) = Action.async { implicit request =>
-        eventModel.getEventAttendees(eventId).map { attendees =>
-            Ok(Json.toJson(attendees))
-        }
-    }
+    // // Endpoint to view the list of attendees for an event
+    // def viewAttendees(eventId: Long) = Action.async { implicit request =>
+    //     eventModel.getEventAttendees(eventId).map { attendees =>
+    //         Ok(Json.toJson(attendees))
+    //     }
+    // }
 
     // Additional endpoints as needed...
 }

@@ -13,10 +13,32 @@ class ProfileDropdown extends React.Component {
     }
 
     render() {
-        return ce('div', {onClick: this.toggleDropdown}, 
-            "HI",
-        )
+        if (this.state.open) {
+            return ce('div', {className: 'dropdown', onClick: this.toggleDropdown}, 
+                ce(DropdownLink, {name: 'Home', route: 'home'}, null),
+                ce(DropdownLink, {name: 'Create Event', route: 'home'}, null),
+                ce(DropdownLink, {name: 'Logout', route: 'login'}, null)
+            )
+        } else {
+            return ce('div', {onClick: this.toggleDropdown}, 
+                "PROFILE PIC PLACEHOLDER",
+            )
+        }
+        
     }
+}
+
+class DropdownLink extends React.Component {
+    constructor(props) {
+        super(props)
+        this.route = props.route;
+        this.name = props.name;
+    }
+
+    render() {
+        return ce('div', {className: 'dropdown-link', onClick: () => fetch(this.route)}, this.name)
+    }
+
 }
 
 export default ProfileDropdown

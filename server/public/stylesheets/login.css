@@ -1,19 +1,65 @@
+
+/* Define CSS Variables for easy access */
+:root {
+    --dark-brown: #3B2C26;
+    --champagne: #EFE6D9;
+    --dark-green: #6A5D4C;
+    --lighter-green: #C0DFC4;
+    --orangey-red: #C85330;
+    --lighter-orangey-red: #DD866C;
+    --periwinkle: #BCB6FF;
+    --lighter-periwinkle: #D7D3FF;
+}
 body {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
     background-color: #EFE6D9;
     font-family: 'Bebas Neue', sans-serif;
     /*font-family: 'Montserrat', sans-serif;*/
     margin: 0;
     color: #3B2C26; /* Default text color */
+
   }
-.login_area{
-    width:100%;
-    max-width: 400px;
-    background-color: beige;
-
-
+h2{
+    font-weight: bold;
+    font-size: 2rem;
 }
-label {
-    display: block;
-    margin-bottom: 5px;
+/* Style the main login area */
+.login-area {
+    margin: 0 auto;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+    padding: 50px;
+    border: 1px solid var(--dark-brown);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    background-color: var(--champagne);
 }
 
+/* Style the title and input elements */
+.login-area h1,
+.login-area input {
+    color: var(--dark-brown);
+}
+
+/* Style the submit button */
+.login-area input[type="submit"] {
+    background-color: var(--orangey-red);
+    color: var(--champagne);
+    font-weight: bold;
+    padding: 10px 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.login-area input[type="submit"]:hover {
+    background-color: var(--lighter-orangey-red);
+}
+
+input::placeholder {
+    text-align: center;
+}
