@@ -66,14 +66,14 @@ class UserModel(db: Database)(implicit ec: ExecutionContext) {
   }
 
   def registerForEvent(userId: Int, eventId: Int): Future[Boolean] = {
-    // Create a new EventattendeesRow object
     val newAttendee = EventattendeesRow(eventid = eventId, userid = userId)
-
-    // Define the insert query
     val insertQuery = Eventattendees += newAttendee
-
-    // Execute the query
     db.run(insertQuery).map(_ > 0) // Returns true if the insert is successful
+  }
+
+  def getUserTickets(userId: Int): Future[Seq[TicketsRow]] = {
+    val query = Tickets.filter(_.userid === userId).result
+    db.run(query)
   }
 
 

@@ -7,7 +7,6 @@ case class EventData(
   name: String,
   date: java.sql.Timestamp,
   location: String,
-  price: BigDecimal,
   description: Option[String],
   image: Option[String]
 )

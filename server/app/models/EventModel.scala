@@ -46,8 +46,8 @@ class EventModel(db: Database)(implicit ec: ExecutionContext) {
   // Update event details
   def updateEvent(eventId: Int, updatedEvent: EventsRow): Future[Boolean] = {
     val updateQuery = Events.filter(_.eventid === eventId)
-      .map(event => (event.name, event.date, event.location, event.price, event.description, event.image))
-      .update((updatedEvent.name, updatedEvent.date, updatedEvent.location, updatedEvent.price, updatedEvent.description, updatedEvent.image))
+      .map(event => (event.name, event.date, event.location, event.description, event.image))
+      .update((updatedEvent.name, updatedEvent.date, updatedEvent.location, updatedEvent.description, updatedEvent.image))
     db.run(updateQuery).map(_ == 1)
   }
 
@@ -57,5 +57,4 @@ class EventModel(db: Database)(implicit ec: ExecutionContext) {
     db.run(query).map(_ > 0)
   }
 
-  // Additional methods as needed...
 }

@@ -55,20 +55,19 @@ trait Tables {
    *  @param name Database column name SqlType(varchar), Length(255,true)
    *  @param date Database column date SqlType(timestamp)
    *  @param location Database column location SqlType(varchar), Length(255,true)
-   *  @param price Database column price SqlType(numeric)
    *  @param description Database column description SqlType(text), Default(None)
    *  @param image Database column image SqlType(text), Default(None) */
-  case class EventsRow(eventid: Int, orgid: Int, name: String, date: java.sql.Timestamp, location: String, price: scala.math.BigDecimal, description: Option[String] = None, image: Option[String] = None)
+  case class EventsRow(eventid: Int, orgid: Int, name: String, date: java.sql.Timestamp, location: String, description: Option[String] = None, image: Option[String] = None)
   /** GetResult implicit for fetching EventsRow objects using plain SQL queries */
-  implicit def GetResultEventsRow(implicit e0: GR[Int], e1: GR[String], e2: GR[java.sql.Timestamp], e3: GR[scala.math.BigDecimal], e4: GR[Option[String]]): GR[EventsRow] = GR{
+  implicit def GetResultEventsRow(implicit e0: GR[Int], e1: GR[String], e2: GR[java.sql.Timestamp], e3: GR[Option[String]]): GR[EventsRow] = GR{
     prs => import prs._
-    EventsRow.tupled((<<[Int], <<[Int], <<[String], <<[java.sql.Timestamp], <<[String], <<[scala.math.BigDecimal], <<?[String], <<?[String]))
+    EventsRow.tupled((<<[Int], <<[Int], <<[String], <<[java.sql.Timestamp], <<[String], <<?[String], <<?[String]))
   }
   /** Table description of table events. Objects of this class serve as prototypes for rows in queries. */
   class Events(_tableTag: Tag) extends profile.api.Table[EventsRow](_tableTag, "events") {
-    def * = (eventid, orgid, name, date, location, price, description, image).<>(EventsRow.tupled, EventsRow.unapply)
+    def * = (eventid, orgid, name, date, location, description, image).<>(EventsRow.tupled, EventsRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = ((Rep.Some(eventid), Rep.Some(orgid), Rep.Some(name), Rep.Some(date), Rep.Some(location), Rep.Some(price), description, image)).shaped.<>({r=>import r._; _1.map(_=> EventsRow.tupled((_1.get, _2.get, _3.get, _4.get, _5.get, _6.get, _7, _8)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = ((Rep.Some(eventid), Rep.Some(orgid), Rep.Some(name), Rep.Some(date), Rep.Some(location), description, image)).shaped.<>({r=>import r._; _1.map(_=> EventsRow.tupled((_1.get, _2.get, _3.get, _4.get, _5.get, _6, _7)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
     /** Database column eventid SqlType(serial), AutoInc, PrimaryKey */
     val eventid: Rep[Int] = column[Int]("eventid", O.AutoInc, O.PrimaryKey)
@@ -80,8 +79,6 @@ trait Tables {
     val date: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("date")
     /** Database column location SqlType(varchar), Length(255,true) */
     val location: Rep[String] = column[String]("location", O.Length(255,varying=true))
-    /** Database column price SqlType(numeric) */
-    val price: Rep[scala.math.BigDecimal] = column[scala.math.BigDecimal]("price")
     /** Database column description SqlType(text), Default(None) */
     val description: Rep[Option[String]] = column[Option[String]]("description", O.Default(None))
     /** Database column image SqlType(text), Default(None) */
