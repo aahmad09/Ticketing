@@ -25,6 +25,8 @@ lazy val server = (project in file("server"))
       "org.postgresql" % "postgresql" % "42.6.0",
       "com.typesafe.slick" %% "slick-hikaricp" % "3.4.1",
       "javax.xml.bind" % "jaxb-api" % "2.2.12",
+      "com.google.zxing" % "core" % "3.4.1",
+      "com.google.zxing" % "javase" % "3.4.1",
       specs2 % Test
     )
     // Test / javaOptions ++= Seq(

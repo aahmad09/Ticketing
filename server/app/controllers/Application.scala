@@ -28,8 +28,4 @@ class Application @Inject() (cc: ControllerComponents)
   def login = Action {
     Redirect(routes.AuthenticationController.loginPage)
   }
-
-  def home = Action { implicit request =>
-    Ok(views.html.attendeeHome())
-  }
 }
