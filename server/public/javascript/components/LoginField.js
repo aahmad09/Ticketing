@@ -20,18 +20,17 @@ class LoginField extends React.Component {
     }
 
     render() {
-        return ce('div', {className: 'login_area'}, 
+        return ce('div', null, 
             ce('div', {className: 'labeled_field'}, 
-                ce('Email: ',{type:'label'}),
-                ce('input', {type: 'text', value: this.state.email, onChange: (e) => this.handleEmailChange(e)}),
+                ce('input', {type: 'text', placeholder: 'EMAIL', value: this.state.email, onChange: (e) => this.handleEmailChange(e)}),
             ),
             ce('div', {className: 'labeled_field'}, 
-            ce('Password: ',{type:'label'}),
-                ce('input', {type: 'password', value: this.state.password, onChange: (e) => this.handlePasswordChange(e)}),
+                ce('input', {type: 'text', placeholder: 'PASSWORD', value: this.state.password, onChange: (e) => this.handlePasswordChange(e)}),
             ),
             ce('button', {onClick: (e) => this.handleSubmit(e)}, "Submit"),
-        )
+        );
     }
 }
+
 
 export default LoginField

@@ -1,7 +1,6 @@
 import LoginField from '../components/LoginField.js'
 
 const ce = React.createElement
-
 class LoginPage extends React.Component {
     constructor(props) {
         super(props)
@@ -20,11 +19,12 @@ class LoginPage extends React.Component {
     }
 
     render() {
+        
         return ce('div', null,
             ce('h2', null, "Login: "),
             ce(LoginField, { submit: this.login }, null),
             ce('hr', null, null),
-            ce('h2', null, "Don't have a login? ", ce('a', { href: 'register' }, "Sign up here."))
+            ce('h3', null, ce('a', { href: 'register' }, "Create an Account ->"), ce('i', {className: 'fa-long-arrow-right'}))
         )
     }
 }

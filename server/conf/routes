@@ -7,6 +7,7 @@ GET        /                             controllers.Application.login
 
 # Auth
 GET        /login                        controllers.AuthenticationController.loginPage
+GET        /logout                       controllers.AuthenticationController.logout
 POST       /handleLogin                  controllers.AuthenticationController.handleLogin
 GET        /register                     controllers.AuthenticationController.registerPage
 POST       /handleRegistration           controllers.AuthenticationController.handleRegistration
