@@ -6,7 +6,8 @@ import models.Tables._
 
 object JsonFormats {
 
-  // Format for java.sql.Timestamp
+  //  Writes
+
   implicit val timestampFormat: Format[Timestamp] = new Format[Timestamp] {
     def writes(ts: Timestamp): JsValue = JsString(ts.toString)
     def reads(json: JsValue): JsResult[Timestamp] = json match {
@@ -15,11 +16,10 @@ object JsonFormats {
     }
   }
 
-  // Writes for EventsRow
-  implicit val eventsRowWrites: Writes[EventsRow] = new Writes[EventsRow] {
-    def writes(event: EventsRow): JsValue = Json.obj(
-      "eventId" -> event.eventid,
-      "orgId" -> event.orgid,
+  implicit val eventDataWrites: Writes[EventData] = new Writes[EventData] {
+    def writes(event: EventData): JsValue = Json.obj(
+      "eventId" -> event.eventId,
+      "orgId" -> event.orgId,
       "name" -> event.name,
       "date" -> event.date,
       "location" -> event.location,
@@ -28,28 +28,40 @@ object JsonFormats {
     )
   }
 
-  // Writes for UsersRow
-  implicit val usersRowWrites: Writes[UsersRow] = new Writes[UsersRow] {
-    def writes(user: UsersRow): JsValue = Json.obj(
-      "userid" -> user.userid,
+  implicit val userDataWrites: Writes[UserData] = new Writes[UserData] {
+    def writes(user: UserData): JsValue = Json.obj(
+      "userid" -> user.userId,
       "name" -> user.name,
       "email" -> user.email,
-      // Add other fields if necessary
     )
   }
 
-  // Implicit Json Writes for TicketsRow
-  implicit val ticketsRowWrites: Writes[TicketsRow] = new Writes[TicketsRow] {
-    def writes(ticket: TicketsRow): JsValue = Json.obj(
-      "ticketId" -> ticket.ticketid,
-      "userId" -> ticket.userid,
-      "eventId" -> ticket.eventid,
-      "qrCode" -> ticket.qrcode
+  implicit val ticketDataWrites: Writes[TicketData] = new Writes[TicketData] {
+    def writes(ticket: TicketData): JsValue = Json.obj(
+      "ticketId" -> ticket.ticketId,
+      "userId" -> ticket.userId,
+      "eventId" -> ticket.eventId,
+      "qrCode" -> ticket.qrCode
     )
   }
 
+  implicit val waiverDataWrites: Writes[WaiverData] = new Writes[WaiverData] {
+    def writes(waiver: WaiverData): JsValue = Json.obj(
+      "waiverId" -> waiver.waiverId,
+      "userId" -> waiver.userId,
+      "eventId" -> waiver.eventId,
+      "signStatus" -> waiver.signStatus
+    )
+  }
+  
   // Reads
   implicit val eventRegistrationDataReads: Reads[EventRegistrationData] = Json.reads[EventRegistrationData]
   implicit val eventDataReads: Reads[EventData] = Json.reads[EventData]
+  implicit val ticketsDataReads: Reads[TicketData] = Json.reads[TicketData]
+  implicit val waiversDataReads: Reads[WaiverData] = Json.reads[WaiverData]
+  implicit val userDataReads: Reads[LoginData] = Json.reads[LoginData]
+  implicit val registrationDataReads: Reads[RegistrationData] =
+    Json.reads[RegistrationData]
+
 
 }

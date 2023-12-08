@@ -16,42 +16,30 @@ class UserModel(db: Database)(implicit ec: ExecutionContext) {
   }
 
   // Create a new user
-  def createUser(
-      name: String,
-      email: String,
-      password: String,
-      role: Option[String],
-  ): Future[Option[Int]] = {
-    val newUser = UsersRow(-1, name, email, role, password)
-    val insertQuery = (Users returning Users.map(_.userid)) += newUser
-    val existingUserQuery = Users.filter(_.email === email).exists.result
+  def createUser(userData: UserData): Future[Option[Int]] = {
+    val newUserRow = UsersRow(-1, userData.name, userData.email, userData.role, userData.password)
+    val insertQuery = (Users returning Users.map(_.userid)) += newUserRow
+    val existingUserQuery = Users.filter(_.email === userData.email).exists.result
 
     db.run(existingUserQuery).flatMap {
       case true => Future.successful(None) // User already exists
-      case false =>
-        db.run(insertQuery).map(Some(_)) // Wraps the returned ID in an Option
+      case false => db.run(insertQuery).map(Some(_)) // Wrap the returned ID in an Option
     }
   }
 
   // Get user by ID
-  def getUserById(userId: Int): Future[Option[UsersRow]] = {
-    db.run(Users.filter(_.userid === userId).result.headOption)
+  def getUserById(userId: Int): Future[Option[UserData]] = {
+    val query = Users.filter(_.userid === userId).result.headOption
+    db.run(query).map(_.map(userRow => 
+      UserData(Some(userRow.userid), userRow.name, userRow.email, userRow.password, userRow.role)))
   }
 
   // Update user details
-  def updateUser(
-      userId: Int,
-      name: String,
-      email: String,
-      password: String,
-      role: Option[String],
-  ): Future[Boolean] = {
+  def updateUser(userId: Int, userData: UserData): Future[Boolean] = {
     val updateQuery = Users
       .filter(_.userid === userId)
-      .map(user =>
-        (user.name, user.email, user.password, user.role)
-      )
-      .update((name, email, password, role))
+      .map(user => (user.name, user.email, user.password, user.role))
+      .update((userData.name, userData.email, userData.password, userData.role))
 
     db.run(updateQuery).map(_ > 0)
   }
@@ -61,21 +49,22 @@ class UserModel(db: Database)(implicit ec: ExecutionContext) {
     db.run(Users.filter(_.userid === userId).delete).map(_ > 0)
   }
 
-  def getAllUsers(): Future[Seq[UsersRow]] = {
-    db.run(Users.result)
+  // List all users
+  def getAllUsers(): Future[Seq[UserData]] = {
+    db.run(Users.result).map(_.map(userRow => 
+      UserData(Some(userRow.userid), userRow.name, userRow.email, userRow.password, userRow.role)))
   }
 
+  // Register user for an event
   def registerForEvent(userId: Int, eventId: Int): Future[Boolean] = {
-    val newAttendee = EventattendeesRow(eventid = eventId, userid = userId)
-    val insertQuery = Eventattendees += newAttendee
-    db.run(insertQuery).map(_ > 0) // Returns true if the insert is successful
+    val newAttendee = EventattendeesRow(eventId, userId)
+    db.run(Eventattendees += newAttendee).map(_ > 0)
   }
 
-  def getUserTickets(userId: Int): Future[Seq[TicketsRow]] = {
+  // Get user tickets
+  def getUserTickets(userId: Int): Future[Seq[TicketData]] = {
     val query = Tickets.filter(_.userid === userId).result
-    db.run(query)
+    db.run(query).map(_.map(ticketRow => 
+      TicketData(Some(ticketRow.ticketid), ticketRow.userid, ticketRow.eventid, ticketRow.qrcode)))
   }
-
-
-
 }

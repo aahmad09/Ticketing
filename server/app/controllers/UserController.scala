@@ -1,32 +1,24 @@
 package controllers
-import shared.SharedMessages
 
 import javax.inject._
 import play.api.mvc._
 import models._
+import models.JsonFormats._
 import scala.concurrent.{ExecutionContext, Future}
 import play.api.libs.json._
 import play.api.db.slick.DatabaseConfigProvider
 import play.api.db.slick.HasDatabaseConfigProvider
-import slick.jdbc.JdbcProfile
-import java.sql.Timestamp
-import models.Tables._
-import models.JsonFormats._
-
-
 import shared.SharedMessages
 
 @Singleton
 class UserController @Inject() (
     val controllerComponents: ControllerComponents,
-    protected val dbConfigProvider: DatabaseConfigProvider
-)(implicit ec: ExecutionContext)
-    extends BaseController
-    with HasDatabaseConfigProvider[JdbcProfile] {
+    protected val dbConfigProvider: DatabaseConfigProvider,
+    implicit val ec: ExecutionContext
+) extends BaseController with HasDatabaseConfigProvider[slick.jdbc.JdbcProfile] {
 
-  private val userModel = new UserModel(db)
-  private val eventModel = new EventModel(db)
-  
+  private val userModel = new UserModel(dbConfigProvider.get[slick.jdbc.JdbcProfile].db)
+  private val eventModel = new EventModel(dbConfigProvider.get[slick.jdbc.JdbcProfile].db)
 
   // Endpoint to view all listed events
   def listEvents = Action.async { implicit request =>
@@ -35,13 +27,8 @@ class UserController @Inject() (
     }
   }
 
-  // Attendee Dashboard
-  def attendeeDashboard = Action {
-    Ok(views.html.index(SharedMessages.itWorks))
-  }
-
-  // Organizer Dashboard
-  def organizerDashboard = Action {
+  // Dashboard
+  def dashboard = Action {
     Ok(views.html.index(SharedMessages.itWorks))
   }
 
@@ -49,12 +36,10 @@ class UserController @Inject() (
   def registerForEvent = Action.async(parse.json) { implicit request =>
     handleJsonValidation(request.body.validate[EventRegistrationData]) {
       registration =>
-        userModel
-          .registerForEvent(registration.userId, registration.eventId)
-          .map { registered =>
+        userModel.registerForEvent(registration.userId, registration.eventId).map { registered =>
             if (registered) Ok("Registration successful")
             else BadRequest("Registration failed")
-          }
+        }
     }
   }
 
@@ -66,19 +51,10 @@ class UserController @Inject() (
   }
 
   // Helper method for handling JSON validation
-  private def handleJsonValidation[A](
-      result: JsResult[A]
-  )(success: A => Future[Result]): Future[Result] = {
+  private def handleJsonValidation[A](result: JsResult[A])(success: A => Future[Result]): Future[Result] = {
     result.fold(
-      errors => {
-        val errorStr = errors.toString
-        println(
-          s"JSON Validation Error: $errorStr"
-        ) // Log the error for debugging
-        Future.successful(BadRequest(s"Invalid data: $errorStr"))
-      },
+      errors => Future.successful(BadRequest("Invalid JSON data")),
       success
     )
   }
-
 }

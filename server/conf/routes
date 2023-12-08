@@ -12,8 +12,7 @@ GET        /register                     controllers.AuthenticationController.re
 POST       /handleRegistration           controllers.AuthenticationController.handleRegistration
 
 # User
-GET        /attendeeDashboard                 controllers.UserController.attendeeDashboard
-GET        /organizerDashboard                 controllers.UserController.organizerDashboard
+GET        /dashboard                 controllers.UserController.dashboard
 
 # Tickets
 POST       /registerForEvent/:userId/:eventId controllers.TicketsController.registerForEvent(userId: Int, eventId: Int)
