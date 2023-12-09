@@ -10,7 +10,6 @@ const DashboardRoute = document.getElementById("DashboardRoute").value;
 class LoginPage extends React.Component {
     constructor(props) {
         super(props)
-        this.relocate = props.relocate;
         this.login = (params) => {
             fetch("handleLogin", {
                 method: "POST",

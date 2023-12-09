@@ -27,7 +27,7 @@ class LoginField extends React.Component {
             ce('div', {className: 'labeled_field'}, 
                 ce('input', {className: 'text_field', type: 'password', placeholder: 'PASSWORD', value: this.state.password, onChange: (e) => this.handlePasswordChange(e)}),
             ),
-            ce('button', {className: 'login_button', onClick: (e) => this.handleSubmit(e)}, "Submit"),
+            ce('button', {className: 'login_button', onClick: (e) => this.handleSubmit(e)}, "SUBMIT"),
         );
     }
 }

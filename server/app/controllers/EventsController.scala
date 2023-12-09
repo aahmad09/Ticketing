@@ -23,6 +23,10 @@ class EventsController @Inject() (
     request.session.get("userId").map(_.toInt).map(f).getOrElse(Future.successful(Ok(Json.toJson(Seq.empty[String]))))
   }
 
+  def createEventPage = Action { implicit request =>
+    Ok(views.html.createEventPage())
+  }
+
   // List all events
   def listAllEvents = Action.async { implicit request =>
     eventModel.getAllEvents().map { events =>
@@ -31,7 +35,7 @@ class EventsController @Inject() (
   }
 
   // Create a new event
-  def createNewEvent = Action.async(parse.json) { implicit request =>
+  def createEvent = Action.async(parse.json) { implicit request =>
     handleJsonValidation(request.body.validate[EventData]) { eventData =>
       eventModel.createEvent(eventData).map { eventId =>
         if (eventId > 0) Ok(s"Event created successfully with ID $eventId")

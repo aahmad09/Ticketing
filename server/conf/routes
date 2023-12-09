@@ -15,17 +15,21 @@ POST       /handleRegistration                 controllers.AuthenticationControl
 # User
 GET        /dashboard                          controllers.UserController.dashboard
 GET        /viewTickets                        controllers.UserController.viewTickets
-GET        /getRole                            controllers.UserController.getRole
-
+GET        /getProfileInfo                     controllers.UserController.getProfileInfo
+GET        /getUserId                          controllers.UserController.getUserId
 
 # Tickets
 POST       /registerForEvent/:eventId          controllers.TicketsController.registerForEvent(eventId: Int)
 GET        /getTicket/:ticketId                controllers.TicketsController.getTicket(ticketId: Int)
+
+# Events
+GET         /createEventPage                   controllers.EventsController.createEventPage
+POST        /createEvent                       controllers.EventsController.createEvent
 
 # Organizer 
 
 
 # Assets
 # Prefix must match `play.assets.urlPrefix`
-GET        /assets/*file                        controllers.Assets.at(file)
-GET        /versionedAssets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+GET        /assets/*file                       controllers.Assets.at(file)
+GET        /versionedAssets/*file              controllers.Assets.versioned(path="/public", file: Asset)
