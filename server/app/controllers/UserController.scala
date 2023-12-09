@@ -54,15 +54,9 @@ class UserController @Inject()(
     //     }
     // }
 
-    def attendeeHome = Action { implicit request =>
-        Ok(views.html.attendeeHome())
+    def dashboard = Action { implicit request =>
+        Ok(views.html.dashboard())
     }
-
-    // // Endpoint to register for an event
-    // def registerForEvent = Action.async(parse.json) { implicit request =>
-    //     request.body.validate[EventRegistrationData].fold(
-    //         errors => Future.successful(BadRequest("Invalid registration data")),
-    //         registration => {
     //             userModel.registerForEvent(registration.userId, registration.eventId).map { registered =>
     //                 if(registered) Ok("Registration successful")
     //                 else BadRequest("Registration failed")

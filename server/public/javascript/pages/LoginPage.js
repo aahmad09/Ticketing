@@ -12,7 +12,7 @@ class LoginPage extends React.Component {
                 body: JSON.stringify(params)
             }).then(res => res.json()).then(data => {
                 if (data) {
-                    this.relocate("home");
+                    this.relocate("dashboard");
                 }
             })
         }

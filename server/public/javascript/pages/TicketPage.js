@@ -1,6 +1,6 @@
 const ce = React.createElement
 
-class HomePage extends React.Component {
+class TicketPage extends React.Component {
     constructor(props) {
         super(props)
     }
@@ -9,3 +9,9 @@ class HomePage extends React.Component {
         return ce('div', {style: {overflow: 'hidden'}}, null)
     }
 }
+
+
+ReactDOM.render(
+    React.createElement(TicketPage, {}, null),
+    document.getElementById('react-root')
+);

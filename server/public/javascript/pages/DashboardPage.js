@@ -3,7 +3,7 @@ import ProfileDropdown from '../components/ProfileDropdown.js'
 
 const ce = React.createElement
 
-class dashboard extends React.Component {
+class DashboardPage extends React.Component {
     constructor(props) {
         super(props)
     }
@@ -41,6 +41,6 @@ class dashboard extends React.Component {
 
 
 ReactDOM.render(
-    React.createElement(dashboard, {}, null),
+    React.createElement(DashboardPage, {}, null),
     document.getElementById('react-root')
 );

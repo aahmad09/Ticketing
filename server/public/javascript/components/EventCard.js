@@ -7,7 +7,11 @@ class EventCard extends React.Component {
         this.month = props.month
         this.day = props.day
         this.color = props.color
-        this.onCardClick = props.onClick
+        this.togglePopup = props.togglePopup
+    }
+
+    onCardClick() {
+        fetch('getEvent?' + encodeURIComponent('title') + '=' + encodeURIComponent(this.title))
     }
 
     render() {

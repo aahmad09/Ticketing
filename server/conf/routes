@@ -14,7 +14,7 @@ GET        /register                     controllers.AuthenticationController.re
 POST       /handleRegistration           controllers.AuthenticationController.handleRegistration
 
 # User
-GET        /home                 controllers.UserController.attendeeHome
+GET        /dashboard                    controllers.UserController.dashboard
 
 
 # Prefix must match `play.assets.urlPrefix`

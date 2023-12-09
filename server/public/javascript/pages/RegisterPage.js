@@ -2,8 +2,9 @@ import RegistrationField from '../components/RegistrationField.js'
 
 const ce = React.createElement
 
-const attendeeHomeRoute = document.getElementById("AttendeeHomeRoute").value;
+const DashboardRoute = document.getElementById("DashboardRoute").value;
 const LoginRoute = document.getElementById("LoginRoute").value;
+
 
 class RegisterPage extends React.Component {
     constructor(props) {
@@ -18,7 +19,7 @@ class RegisterPage extends React.Component {
             }).then(res => res.json()).then(data => {
                 if (data) {
                     console.log(data);
-                    fetch(attendeeHomeRoute);
+                    fetch(DashboardRoute);
                 } else {
                     fetch(LoginRoute);
                 }
