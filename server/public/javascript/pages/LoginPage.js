@@ -20,7 +20,7 @@ class LoginPage extends React.Component {
 
     render() {
         
-        return ce('div', null,
+        return ce('div',{className: "login-area"},
             ce('h2', null, "Login: "),
             ce(LoginField, { submit: this.login }, null),
             ce('hr', null, null),

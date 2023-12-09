@@ -14,6 +14,7 @@ POST       /handleRegistration           controllers.AuthenticationController.ha
 
 # User
 GET        /dashboard                 controllers.UserController.dashboard
+GET        /viewTickets/:userId               controllers.UserController.viewTickets(userId: Int)
 
 # Tickets
 POST       /registerForEvent/:userId/:eventId controllers.TicketsController.registerForEvent(userId: Int, eventId: Int)

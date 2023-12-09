@@ -3,6 +3,7 @@ const ce = React.createElement
 class EventCard extends React.Component {
     constructor(props) {
         super(props)
+        this.ticketId = props.ticketId
         this.title = props.title
         this.month = props.month
         this.day = props.day
@@ -11,7 +12,7 @@ class EventCard extends React.Component {
     }
 
     onCardClick() {
-        fetch('getEvent?' + encodeURIComponent('title') + '=' + encodeURIComponent(this.title))
+        fetch('getTicket?' + encodeURIComponent('ticketId') + '=' + encodeURIComponent(this.ticketId))
     }
 
     render() {

@@ -1,12 +1,10 @@
-import EventCard from '../components/EventCard.js'
 import ProfileDropdown from '../components/ProfileDropdown.js'
 
 const ce = React.createElement
 
-class DashboardPage extends React.Component {
+class EventTicket extends React.Component {
     constructor(props) {
         super(props)
-        fetch()
     }
 
     render() {
@@ -42,6 +40,6 @@ class DashboardPage extends React.Component {
 
 
 ReactDOM.render(
-    React.createElement(DashboardPage, {}, null),
+    React.createElement(EventTicket, {}, null),
     document.getElementById('react-root')
 );

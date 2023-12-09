@@ -28,8 +28,8 @@ class UserController @Inject() (
   }
 
   // Dashboard
-  def dashboard = Action {
-    Ok(views.html.index(SharedMessages.itWorks))
+  def dashboard = Action {implicit request =>
+    Ok(views.html.dashboard())
   }
 
   // Endpoint to register for an event
@@ -57,8 +57,4 @@ class UserController @Inject() (
       success
     )
   }
-
-   def dashboard = Action { implicit request =>
-        Ok(views.html.dashboard())
-    }
 }
