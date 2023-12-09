@@ -70,6 +70,19 @@ class UserController @Inject() (
     }
   }
 
+  // Endpoint to update user preferences
+  def updateUserPreferences = Action.async(parse.json) { implicit request =>
+    request.body.validate[UserData].fold(
+      errors => Future.successful(BadRequest(Json.obj("status" -> "error", "message" -> "Invalid JSON data"))),
+      userData => {
+        userModel.updateUserPreferences(userData.userId.getOrElse(-1), userData).map {
+          case true => Ok(Json.obj("status" -> "success", "message" -> "Preferences updated successfully"))
+          case false => BadRequest(Json.obj("status" -> "error", "message" -> "Failed to update preferences"))
+        }
+      }
+    )
+  }
+
   // Helper method for handling JSON validation
   private def handleJsonValidation[A](result: JsResult[A])(success: A => Future[Result]): Future[Result] = {
     result.fold(

@@ -59,7 +59,8 @@ object JsonFormats {
   implicit val eventDataReads: Reads[EventData] = Json.reads[EventData]
   implicit val ticketsDataReads: Reads[TicketData] = Json.reads[TicketData]
   implicit val waiversDataReads: Reads[WaiverData] = Json.reads[WaiverData]
-  implicit val userDataReads: Reads[LoginData] = Json.reads[LoginData]
+  implicit val loginDataReads: Reads[LoginData] = Json.reads[LoginData]
+  implicit val userDataReads: Reads[UserData] = Json.reads[UserData]
   implicit val registrationDataReads: Reads[RegistrationData] =
     Json.reads[RegistrationData]
 

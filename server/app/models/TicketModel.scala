@@ -3,23 +3,39 @@ package models
 import slick.jdbc.PostgresProfile.api._
 import scala.concurrent.{Future, ExecutionContext}
 import models.Tables._
+import com.google.zxing.{BarcodeFormat, EncodeHintType}
+import com.google.zxing.qrcode.QRCodeWriter
+import com.google.zxing.client.j2se.MatrixToImageWriter
+import java.io.ByteArrayOutputStream
+import java.util.Base64
+import java.util.{EnumMap, Map}
 
 class TicketModel(db: Database)(implicit ec: ExecutionContext) {
 
   // Generate a ticket for a user for an event
   def generateTicket(eventId: Int, userId: Int): Future[Option[TicketData]] = {
-    // Generate a QR code (placeholder logic)
-    val qrCode = "Generated-QR-Code-Here"
+    try {
+      val qrCodeData = s"EventID: $eventId, UserID: $userId"
+      val hints = new EnumMap[EncodeHintType, Object](classOf[EncodeHintType])
+      hints.put(EncodeHintType.CHARACTER_SET, "UTF-8")
 
-    val ticketRow = TicketsRow(-1, userId, eventId, qrCode)
-    val insertQuery = (Tickets returning Tickets.map(_.ticketid)) += ticketRow
+      val qrCodeWriter = new QRCodeWriter()
+      val bitMatrix = qrCodeWriter.encode(qrCodeData, BarcodeFormat.QR_CODE, 200, 200, hints)
 
-    db.run(insertQuery).map { ticketId =>
-      Some(TicketData(Some(ticketId), userId, eventId, qrCode))
-    }.recover {
+      val outputStream = new ByteArrayOutputStream()
+      MatrixToImageWriter.writeToStream(bitMatrix, "PNG", outputStream)
+      val qrCodeBase64 = Base64.getEncoder.encodeToString(outputStream.toByteArray())
+
+      val ticketRow = TicketsRow(-1, userId, eventId, qrCodeBase64)
+      val insertQuery = (Tickets returning Tickets.map(_.ticketid)) += ticketRow
+
+      db.run(insertQuery).map { ticketId =>
+        Some(TicketData(Some(ticketId), userId, eventId, qrCodeBase64))
+      }
+    } catch {
       case ex: Exception =>
         println(s"Error generating ticket: ${ex.getMessage}")
-        None
+        Future.successful(None)
     }
   }
 

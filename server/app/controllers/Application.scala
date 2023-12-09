@@ -24,4 +24,5 @@ class Application @Inject() (cc: ControllerComponents)
   def dashboard = Action { implicit request =>
     Ok(views.html.dashboard())
   }
+
 }
