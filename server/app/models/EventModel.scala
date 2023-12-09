@@ -43,5 +43,4 @@ class EventModel(db: Database)(implicit ec: ExecutionContext) {
     EventData(Some(row.eventid), row.orgid, row.name, row.date, row.location, row.description, row.image)
   }
 
-  // Additional methods...
 }

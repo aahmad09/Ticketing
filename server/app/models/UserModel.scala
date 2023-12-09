@@ -67,4 +67,15 @@ class UserModel(db: Database)(implicit ec: ExecutionContext) {
     db.run(query).map(_.map(ticketRow => 
       TicketData(Some(ticketRow.ticketid), ticketRow.userid, ticketRow.eventid, ticketRow.qrcode)))
   }
+
+    // Update user details (serving as preferences)
+  def updateUserPreferences(userId: Int, updatedUserData: UserData): Future[Boolean] = {
+    val updateQuery = Users
+      .filter(_.userid === userId)
+      .map(user => (user.name, user.email, user.role, user.password))
+      .update((updatedUserData.name, updatedUserData.email, updatedUserData.role, updatedUserData.password))
+
+    db.run(updateQuery).map(_ > 0)
+  }
+  
 }
