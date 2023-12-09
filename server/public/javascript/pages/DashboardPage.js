@@ -8,7 +8,7 @@ class DashboardPage extends React.Component {
         super(props)
         this.state = {tickets: []};
         fetch('viewTickets').then(res => res.json()).then(data => {
-            setState(s => {return {...s, tickets: data}})
+            this.setState(s => {return {...s, tickets: data}})
         })
     }
 

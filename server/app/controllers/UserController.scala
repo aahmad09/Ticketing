@@ -25,10 +25,14 @@ class UserController @Inject() (
     eventModel.getAllEvents().map { events =>
       Ok(Json.toJson(events))
     }
-  }
+  } 
 
   def withSessionUserId(f: Int => Future[Result])(implicit request: Request[AnyContent]): Future[Result] = {
     request.session.get("userId").map(_.toInt).map(f).getOrElse(Future.successful(Ok(Json.toJson(Seq.empty[String]))))
+  }
+
+  def withSessionRole(f: String => Future[Result])(implicit request: Request[AnyContent]): Future[Result] = {
+    request.session.get("role").map(f).getOrElse(Future.successful(Ok(Json.toJson(Seq.empty[String]))))
   }
 
   // Dashboard

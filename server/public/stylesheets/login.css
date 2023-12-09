@@ -26,7 +26,7 @@ h2{
     font-size: 2rem;
 }
 button{
-    background-color: whitesmoke; /* Green */
+    background-color: --dark-green;
     border: none;
     color: dark-brown;
     padding: 5px;

@@ -34,14 +34,15 @@ class AuthenticationController @Inject() (
           Future.successful(
             BadRequest(
               Json.obj("status" -> "error", "message" -> "Invalid JSON format")
+              println(Json.obj)
             )
           ),
         loginData =>
           userModel.validateUser(loginData.email, loginData.password).map {
-            case Some(userId) =>
+            case Some((userId, role)) =>
               Ok(
                 Json.obj("status" -> "success", "message" -> "Login successful")
-              ).withSession("email" -> loginData.email, "userId" -> userId.toString)
+              ).withSession("email" -> loginData.email, "userId" -> userId.toString, "role" -> role)
             case None =>
               BadRequest(
                 Json
@@ -77,7 +78,7 @@ class AuthenticationController @Inject() (
                   "message" -> "User registered successfully",
                   "userId" -> userId
                 )
-              )
+              ).withSession("email" -> registrationData.email, "userId" -> userId.toString, "role" -> registrationData.role)
             case None =>
               BadRequest(
                 Json
