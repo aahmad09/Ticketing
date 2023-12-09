@@ -3,13 +3,20 @@ import ProfileDropdown from '../components/ProfileDropdown.js'
 
 const ce = React.createElement
 
-class HomePage extends React.Component {
+class DashboardPage extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {tickets: [], role: "attendee"};
+        fetch('viewTickets').then(res => res.json()).then(data => {
+            this.setState(s => {return {...s, tickets: data}})
+        })
+        fetch('getRole').then(res => res.json()).then(data => {
+            this.setState(s => {return {...s, role: data.role}})
+        })
     }
 
     render() {
-        return ce('div', {style: {overflow: 'hidden'}},
+        return ce('div', {className: 'dashboard-body',style: {overflow: 'hidden'}},
             ce('div', {className: 'top-bar'}, 
                 ce('h2', null, "Hello, [Name]. Check out what’s going on around campus this week:"),
                 ce(ProfileDropdown, null, null)
@@ -41,6 +48,6 @@ class HomePage extends React.Component {
 
 
 ReactDOM.render(
-    React.createElement(HomePage, {}, null),
-    document.getElementById('react-root')
+    React.createElement(DashboardPage, {}, null),
+    document.getElementById('dashboard-root')
 );

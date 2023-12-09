@@ -17,11 +17,11 @@ class ApplicationSpec() extends PlaySpecification {
     }
 
     "render the index page" in new WithApplication {
-      val home = route(app, FakeRequest(GET, "/")).get
+      val dashboard = route(app, FakeRequest(GET, "/")).get
 
-      status(home) must equalTo(OK)
-      contentType(home) must beSome.which(_ == "text/html")
-      contentAsString(home) must contain ("shouts out")
+      status(dashboard) must equalTo(OK)
+      contentType(dashboard) must beSome.which(_ == "text/html")
+      contentAsString(dashboard) must contain ("shouts out")
     }
   }
 }

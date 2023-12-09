@@ -3,23 +3,29 @@
 # ~~~~
 
 # Home page
-GET        /                             controllers.Application.login
+GET        /                                   controllers.Application.login
 
 # Auth
-GET        /login                        controllers.AuthenticationController.loginPage
-GET        /logout                       controllers.AuthenticationController.logout
-POST       /handleLogin                  controllers.AuthenticationController.handleLogin
-GET        /register                     controllers.AuthenticationController.registerPage
-POST       /handleRegistration           controllers.AuthenticationController.handleRegistration
+GET        /login                              controllers.AuthenticationController.loginPage
+GET        /logout                             controllers.AuthenticationController.logout
+POST       /handleLogin                        controllers.AuthenticationController.handleLogin
+GET        /register                           controllers.AuthenticationController.registerPage
+POST       /handleRegistration                 controllers.AuthenticationController.handleRegistration
 
 # User
-GET        /dashboard                 controllers.UserController.dashboard
+GET        /dashboard                          controllers.UserController.dashboard
+GET        /viewTickets                        controllers.UserController.viewTickets
+GET        /getRole                            controllers.UserController.getRole
+
 
 # Tickets
-POST       /registerForEvent/:userId/:eventId controllers.TicketsController.registerForEvent(userId: Int, eventId: Int)
+POST       /registerForEvent/:eventId          controllers.TicketsController.registerForEvent(eventId: Int)
 GET        /getTicket/:ticketId                controllers.TicketsController.getTicket(ticketId: Int)
+
+# Organizer 
+
 
 # Assets
 # Prefix must match `play.assets.urlPrefix`
-GET        /assets/*file                 controllers.Assets.at(file)
-GET        /versionedAssets/*file        controllers.Assets.versioned(path="/public", file: Asset)
+GET        /assets/*file                        controllers.Assets.at(file)
+GET        /versionedAssets/*file               controllers.Assets.versioned(path="/public", file: Asset)

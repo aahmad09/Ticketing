@@ -7,12 +7,20 @@ import models.Tables._
 class UserModel(db: Database)(implicit ec: ExecutionContext) {
 
   // Validate user credentials
-  def validateUser(email: String, password: String): Future[Option[Int]] = {
+  def validateUser(email: String, password: String): Future[Option[(Int, String)]] = {
     val query = Users
       .filter(user => user.email === email && user.password === password)
       .result
       .headOption
-    db.run(query).map(_.map(_.userid))
+    db.run(query).map(_.map(userRow => (userRow.userid, unwrapRole(userRow.role))))
+  }
+  
+  def unwrapRole(opt: Option[String]): String = {
+  opt match {
+      case Some("attendee") => "attendee"
+      case Some("organizer") => "organizer"
+      case _ => ""
+  }
   }
 
   // Create a new user

@@ -1,5 +1,21 @@
 
 
+/* Define CSS Variables for easy access */
+:root {
+    --dark-brown: #3B2C26;
+    --champagne: #EFE6D9;
+    --dark-green: #94BE9A;
+    --lighter-green: #C0DFC4;
+    --orangey-red: #C85330;
+    --lighter-orangey-red: #DD866C;
+    --periwinkle: #BCB6FF;
+    --lighter-periwinkle: #D7D3FF;
+}
+
+.dashboard-body {
+    margin: 50px;
+}
+
 .card {
     width: 100%;
     min-width: 250px;
@@ -9,7 +25,6 @@
     justify-content: space-between;
     align-items: center;
     border-radius: 20px;
-    border: 1px solid;
     padding: 10px;
     margin: 20px;
 }
@@ -33,3 +48,14 @@
     overflow-x: auto;
     padding-bottom: 1rem;
 }
+.profile-icon .passed-event {
+    background-color: var(--orangey-red);
+  }
+  
+.profile-icon .upcoming-non-purchased-event {
+    background-color: var(--periwinkle);
+}
+.profile-icon .purchased-upcoming-event {
+    background-color: var(--dark-green);
+}
+  

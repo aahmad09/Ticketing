@@ -1,11 +1,24 @@
+:root {
+  --dark-brown: #3B2C26;
+  --champagne: #EFE6D9;
+  --dark-green: #94BE9A;
+  --lighter-green: #C0DFC4;
+  --orangey-red: #C85330;
+  --lighter-orangey-red: #DD866C;
+  --periwinkle: #BCB6FF;
+  --lighter-periwinkle: #D7D3FF;
+}
+.shade-on-hover:hover {
+  background: #00000033;
+}
 body {
     background-color: #EFE6D9;
     font-family: 'Bebas Neue', sans-serif;
     /*font-family: 'Montserrat', sans-serif;*/
     margin: 0;
     color: #3B2C26; /* Default text color */
-  }
-  
+    padding:0; 
+}
   header {
     background-color: #EFE6D9; /* Choose a background color for the header*/
     padding: 10px;
@@ -32,19 +45,7 @@ body {
     cursor: pointer;
   }
   
-  /* Define colors for profile icon based on the event status */
-  .profile-icon.passed-event {
-    background-color: #C85330;
-  }
-  
-  .profile-icon.upcoming-non-purchased-event {
-    background-color: #BCB6FF;
-  }
-  
-  .profile-icon.purchased-upcoming-event {
-    background-color: #94BE9A;
-  }
-  
+ 
   /* Center the logo and profile icon */
   .logo,
   .profile-icon {

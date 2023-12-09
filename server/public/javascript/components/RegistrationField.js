@@ -24,22 +24,18 @@ class RegistrationField extends React.Component {
     render() {
         return ce('div', null, 
             ce('div', {className: 'labeled_field'}, 
-                'Name: ',
-                ce('input', {type: 'text', value: this.state.name, onChange: (e) => this.handleChange('name', e)}),
+                ce('input', {className: 'text_field', type: 'text', placeholder: 'NAME', value: this.state.name, onChange: (e) => this.handleChange('name', e)}),
             ),
             ce('div', {className: 'labeled_field'}, 
-                'Email: ',
-                ce('input', {type: 'text', value: this.state.email, onChange: (e) => this.handleChange('email', e)}),
+                ce('input', {className: 'text_field', placeholder: 'EMAIL', type: 'text', value: this.state.email, onChange: (e) => this.handleChange('email', e)}),
             ),
             ce('div', {className: 'labeled_field'}, 
-                'Password: ',
-                ce('input', {type: 'password', value: this.state.password, onChange: (e) => this.handleChange('password', e)}),
+                ce('input', {className: 'text_field', placeholder: 'PASSWORD', type: 'password', value: this.state.password, onChange: (e) => this.handleChange('password', e)}),
             ),
             ce('div', {className: 'labeled_field'}, 
-                'Role: ',
-                ce('input', {type: 'text', value: this.state.role, onChange: (e) => this.handleChange('role', e)}),
+                ce('input', {className: 'text_field', type: 'text', placeholder: '', value: this.state.role, onChange: (e) => this.handleChange('role', e)}),
             ),
-            ce('button', {onClick: (e) => this.handleSubmit(e)}, "Submit"),
+            ce('button', {className: 'login_button', onClick: (e) => this.handleSubmit(e)}, "Submit"),
         );
     }
 }

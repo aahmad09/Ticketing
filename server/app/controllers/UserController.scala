@@ -25,11 +25,29 @@ class UserController @Inject() (
     eventModel.getAllEvents().map { events =>
       Ok(Json.toJson(events))
     }
+  } 
+
+  def withSessionUserId(f: Int => Future[Result])(implicit request: Request[AnyContent]): Future[Result] = {
+    request.session.get("userId").map(_.toInt).map(f).getOrElse(Future.successful(Ok(Json.toJson(Seq.empty[String]))))
+  }
+
+  def withSessionRole(f: String => Future[Result])(implicit request: Request[AnyContent]): Future[Result] = {
+    request.session.get("role").map(f).getOrElse(Future.successful(Ok(Json.toJson(Seq.empty[String]))))
+  }
+
+  def withSessionRoleSync(f: String => Result)(implicit request: Request[AnyContent]): Result = {
+    request.session.get("role").map(f).getOrElse(Ok(Json.toJson(Seq.empty[String])))
+  }
+
+  def getRole = Action {implicit request =>
+    withSessionRoleSync { role => 
+      Ok(Json.toJson(role))
+    }
   }
 
   // Dashboard
-  def dashboard = Action {
-    Ok(views.html.index(SharedMessages.itWorks))
+  def dashboard = Action {implicit request =>
+    Ok(views.html.dashboard())
   }
 
   // Endpoint to register for an event
@@ -44,9 +62,11 @@ class UserController @Inject() (
   }
 
   // Endpoint to view user's tickets
-  def viewTickets(userId: Int) = Action.async { implicit request =>
-    userModel.getUserTickets(userId).map { tickets =>
-      Ok(Json.toJson(tickets))
+  def viewTickets = Action.async { implicit request =>
+    withSessionUserId { userId =>
+      userModel.getUserTickets(userId).map { tickets =>
+        Ok(Json.toJson(tickets))
+      }
     }
   }
 

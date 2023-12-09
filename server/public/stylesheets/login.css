@@ -3,7 +3,7 @@
 :root {
     --dark-brown: #3B2C26;
     --champagne: #EFE6D9;
-    --dark-green: #6A5D4C;
+    --dark-green: #94BE9A;
     --lighter-green: #C0DFC4;
     --orangey-red: #C85330;
     --lighter-orangey-red: #DD866C;
@@ -11,7 +11,7 @@
     --lighter-periwinkle: #D7D3FF;
 }
 body {
-    display: flex;
+    display: flex !important;
     justify-content: space-between;
     flex-direction: column;
     background-color: #EFE6D9;
@@ -25,27 +25,47 @@ h2{
     font-weight: bold;
     font-size: 2rem;
 }
+button{
+    background-color: var(--dark-green);
+    border: none;
+    color: dark-brown;
+    padding: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 2px;
+    cursor: pointer;
+    border-radius: 25px;
+    width: 125px;
+    height: 25px;
+}
+a{
+    text-decoration: none;
+    color: var(--orangey-red)
+
+}
+
 /* Style the main login area */
 .login-area {
     margin: 0 auto;
-    display: inline-block;
     text-align: center;
+    align-self: flex-start;
+    justify-self: center;
     width: 100%;
     max-width: 500px;
-    padding: 50px;
-    border: 1px solid var(--dark-brown);
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    padding: 20%;
     background-color: var(--champagne);
 }
 
 /* Style the title and input elements */
-.login-area h1,
-.login-area input {
+.labeled_field h1,
+.labeled_field  input {
     color: var(--dark-brown);
 }
 
 /* Style the submit button */
-.login-area input[type="submit"] {
+.labeled_field  input[type="submit"] {
     background-color: var(--orangey-red);
     color: var(--champagne);
     font-weight: bold;
@@ -56,10 +76,24 @@ h2{
     transition: background-color 0.3s ease;
 }
 
-.login-area input[type="submit"]:hover {
+.labeled_field  input[type="submit"]:hover {
     background-color: var(--lighter-orangey-red);
+}
+
+.labeled_field > input {
+    margin: 20 px;
+    border-radius: 25px;
+    text-align: center;
 }
 
 input::placeholder {
     text-align: center;
+}
+
+.text_field {
+    margin: 10px;
+    width: 125px;
+    border-radius: 25px;
+    height: 25px;
+    border: none;
 }

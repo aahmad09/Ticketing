@@ -19,6 +19,10 @@ class WaiversController @Inject() (
 
   private val waiverModel = new WaiverModel(db)
 
+  def withSessionUserId(f: Int => Future[Result])(implicit request: Request[AnyContent]): Future[Result] = {
+    request.session.get("userId").map(_.toInt).map(f).getOrElse(Future.successful(Ok(Json.toJson(Seq.empty[String]))))
+  }
+
   // Endpoint to create a new waiver
   def createWaiver = Action.async(parse.json) { implicit request =>
     handleJsonValidation(request.body.validate[WaiverData]) { waiverData =>

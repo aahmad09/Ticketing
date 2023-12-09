@@ -22,12 +22,12 @@ class LoginField extends React.Component {
     render() {
         return ce('div', null, 
             ce('div', {className: 'labeled_field'}, 
-                ce('input', {type: 'text', placeholder: 'EMAIL', value: this.state.email, onChange: (e) => this.handleEmailChange(e)}),
+                ce('input', {className: 'text_field', type: 'text', placeholder: 'EMAIL', value: this.state.email, onChange: (e) => this.handleEmailChange(e)}),
             ),
             ce('div', {className: 'labeled_field'}, 
-                ce('input', {type: 'text', placeholder: 'PASSWORD', value: this.state.password, onChange: (e) => this.handlePasswordChange(e)}),
+                ce('input', {className: 'text_field', type: 'password', placeholder: 'PASSWORD', value: this.state.password, onChange: (e) => this.handlePasswordChange(e)}),
             ),
-            ce('button', {onClick: (e) => this.handleSubmit(e)}, "Submit"),
+            ce('button', {className: 'login_button', onClick: (e) => this.handleSubmit(e)}, "Submit"),
         );
     }
 }

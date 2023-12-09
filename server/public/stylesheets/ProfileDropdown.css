@@ -1,3 +1,13 @@
+:root {
+    --dark-brown: #3B2C26;
+    --champagne: #EFE6D9;
+    --dark-green: #94BE9A;
+    --lighter-green: #C0DFC4;
+    --orangey-red: #C85330;
+    --lighter-orangey-red: #DD866C;
+    --periwinkle: #BCB6FF;
+    --lighter-periwinkle: #D7D3FF;
+}
 .top-bar {
     display: flex;
     justify-content: space-between;
