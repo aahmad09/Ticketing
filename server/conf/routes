@@ -14,10 +14,10 @@ POST       /handleRegistration           controllers.AuthenticationController.ha
 
 # User
 GET        /dashboard                 controllers.UserController.dashboard
-GET        /viewTickets/:userId               controllers.UserController.viewTickets(userId: Int)
+GET        /viewTickets               controllers.UserController.viewTickets
 
 # Tickets
-POST       /registerForEvent/:userId/:eventId controllers.TicketsController.registerForEvent(userId: Int, eventId: Int)
+POST       /registerForEvent/:eventId controllers.TicketsController.registerForEvent(eventId: Int)
 GET        /getTicket/:ticketId                controllers.TicketsController.getTicket(ticketId: Int)
 
 # Assets

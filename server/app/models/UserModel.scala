@@ -7,18 +7,18 @@ import models.Tables._
 class UserModel(db: Database)(implicit ec: ExecutionContext) {
 
   // Validate user credentials
-  def validateUser(email: String, password: String): Future[Option[Int]] = {
+  def validateUser(email: String, password: String): Future[Option[(Int, String)]] = {
     val query = Users
       .filter(user => user.email === email && user.password === password)
       .result
       .headOption
-    db.run(query).map(_.map(_.userid))
+    db.run(query).map(_.map((_.userid, _.role)))
   }
 
   // Create a new user
-  def createUser(userData: UserData): Future[Option[Int]] = {
+  def createUser(userData: UserData): Future[Option[(Int, String)]] = {
     val newUserRow = UsersRow(-1, userData.name, userData.email, userData.role, userData.password)
-    val insertQuery = (Users returning Users.map(_.userid)) += newUserRow
+    val insertQuery = (Users returning Users.map((_.userid, _.role))) += newUserRow
     val existingUserQuery = Users.filter(_.email === userData.email).exists.result
 
     db.run(existingUserQuery).flatMap {

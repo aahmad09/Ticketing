@@ -19,6 +19,10 @@ class EventsController @Inject() (
 
   private val eventModel = new EventModel(db)
 
+  def withSessionUserId(f: Int => Future[Result])(implicit request: Request[AnyContent]): Future[Result] = {
+    request.session.get("userId").map(_.toInt).map(f).getOrElse(Future.successful(Ok(Json.toJson(Seq.empty[String]))))
+  }
+
   // List all events
   def listAllEvents = Action.async { implicit request =>
     eventModel.getAllEvents().map { events =>

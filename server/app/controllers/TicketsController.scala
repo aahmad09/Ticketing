@@ -28,9 +28,15 @@ class TicketsController @Inject()(
     }
   }
 
+  def withSessionUserId(f: Int => Future[Result])(implicit request: Request[AnyContent]): Future[Result] = {
+    request.session.get("userId").map(_.toInt).map(f).getOrElse(Future.successful(Ok(Json.toJson(Seq.empty[String]))))
+  }
+
   // Action to register a user for an event and create a ticket
-  def registerForEvent(eventId: Int, userId: Int): Action[AnyContent] = Action.async {
-    createJsonResponse(ticketModel.registerForEvent(eventId, userId))
+  def registerForEvent(eventId: Int): Action[AnyContent] = Action.async { implicit request =>
+    withSessionUserId { userId =>
+      createJsonResponse(ticketModel.registerForEvent(eventId, userId))
+    }
   }
 
   // Action to retrieve a specific ticket
@@ -39,9 +45,11 @@ class TicketsController @Inject()(
   }
 
   // Action to view all tickets for a specific user
-  def getUserTickets(userId: Int): Action[AnyContent] = Action.async {
-    ticketModel.getUserTickets(userId).map { tickets =>
-      Ok(Json.toJson(tickets))
+  def getUserTickets: Action[AnyContent] = Action.async { implicit request =>
+    withSessionUserId { userId =>
+      ticketModel.getUserTickets(userId).map { tickets =>
+        Ok(Json.toJson(tickets))
+      }
     }
   }
 

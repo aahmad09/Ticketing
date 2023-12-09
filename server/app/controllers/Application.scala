@@ -12,14 +12,6 @@ import models._
 class Application @Inject() (cc: ControllerComponents)
     extends AbstractController(cc) {
 
-  def withJsonBody[A](
-      f: A => Result
-  )(implicit request: Request[AnyContent], reads: Reads[A]): Option[Result] = {
-    request.body.asJson.flatMap { body =>
-      Json.fromJson[A](body).asOpt.map(f)
-    }
-  }
-
   // TODO: remove
   def index = Action {
     Ok(views.html.index(SharedMessages.itWorks))

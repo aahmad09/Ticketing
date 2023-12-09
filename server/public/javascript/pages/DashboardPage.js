@@ -6,7 +6,10 @@ const ce = React.createElement
 class DashboardPage extends React.Component {
     constructor(props) {
         super(props)
-        fetch()
+        this.state = {tickets: []};
+        fetch('viewTickets').then(res => res.json()).then(data => {
+            setState(s => {return {...s, tickets: data}})
+        })
     }
 
     render() {

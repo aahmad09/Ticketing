@@ -27,6 +27,10 @@ class UserController @Inject() (
     }
   }
 
+  def withSessionUserId(f: Int => Future[Result])(implicit request: Request[AnyContent]): Future[Result] = {
+    request.session.get("userId").map(_.toInt).map(f).getOrElse(Future.successful(Ok(Json.toJson(Seq.empty[String]))))
+  }
+
   // Dashboard
   def dashboard = Action {implicit request =>
     Ok(views.html.dashboard())
@@ -44,9 +48,11 @@ class UserController @Inject() (
   }
 
   // Endpoint to view user's tickets
-  def viewTickets(userId: Int) = Action.async { implicit request =>
-    userModel.getUserTickets(userId).map { tickets =>
-      Ok(Json.toJson(tickets))
+  def viewTickets = Action.async { implicit request =>
+    withSessionUserId { userId =>
+      userModel.getUserTickets(userId).map { tickets =>
+        Ok(Json.toJson(tickets))
+      }
     }
   }
 
