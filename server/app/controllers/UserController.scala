@@ -35,6 +35,16 @@ class UserController @Inject() (
     request.session.get("role").map(f).getOrElse(Future.successful(Ok(Json.toJson(Seq.empty[String]))))
   }
 
+  def withSessionRoleSync(f: String => Result)(implicit request: Request[AnyContent]): Result = {
+    request.session.get("role").map(f).getOrElse(Ok(Json.toJson(Seq.empty[String])))
+  }
+
+  def getRole = Action {implicit request =>
+    withSessionRoleSync { role => 
+      Ok(Json.toJson(role))
+    }
+  }
+
   // Dashboard
   def dashboard = Action {implicit request =>
     Ok(views.html.dashboard())

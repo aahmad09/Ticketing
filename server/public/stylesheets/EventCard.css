@@ -11,6 +11,11 @@
     --periwinkle: #BCB6FF;
     --lighter-periwinkle: #D7D3FF;
 }
+
+.dashboard-body {
+    margin: 50px;
+}
+
 .card {
     width: 100%;
     min-width: 250px;

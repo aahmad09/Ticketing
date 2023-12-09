@@ -26,7 +26,7 @@ h2{
     font-size: 2rem;
 }
 button{
-    background-color: --dark-green;
+    background-color: var(--dark-green);
     border: none;
     color: dark-brown;
     padding: 5px;
@@ -34,12 +34,18 @@ button{
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
+    margin: 10px 2px;
     cursor: pointer;
     border-radius: 25px;
     width: 125px;
     height: 25px;
 }
+a{
+    text-decoration: none;
+    color: var(--orangey-red)
+
+}
+
 /* Style the main login area */
 .login-area {
     margin: 0 auto;
@@ -48,7 +54,7 @@ button{
     justify-self: center;
     width: 100%;
     max-width: 500px;
-    padding: 50px;
+    padding: 20%;
     background-color: var(--champagne);
 }
 

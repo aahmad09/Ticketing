@@ -23,7 +23,8 @@ class ProfileDropdown extends React.Component {
             )
         } else {
             return ce('div', {onClick: this.toggleDropdown}, 
-                ce('img',{src: "profilePicRoute"},""),
+                //ce('img',{src: profilePicRoute},""),
+                null
             )
         }
         

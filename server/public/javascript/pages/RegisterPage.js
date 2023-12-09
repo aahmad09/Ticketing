@@ -28,7 +28,7 @@ class RegisterPage extends React.Component {
     }
 
     render() {
-        return ce('div', null, 
+        return ce('div', {className: "login-area"}, 
             ce('h2', null, "Create an Account:"),
             ce(RegistrationField, {submit: this.newUser}, null)
         )
@@ -38,5 +38,6 @@ class RegisterPage extends React.Component {
 
 ReactDOM.render(
     React.createElement(RegisterPage, {}, null),
-    document.getElementById('react-root')
+    document.getElementById('register-root')
 );
+

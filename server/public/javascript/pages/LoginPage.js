@@ -17,15 +17,15 @@ class LoginPage extends React.Component {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(params)
             }).then(res => res.json()).then(data => {
-                if (data) {
-                    fetch(DashboardRoute);
+                if (data.status === "success") {
+                    window.location.href = DashboardRoute;
                 }
             })
         }
     }
 
     handleRoute(e) {
-        fetch(registerRoute);
+        window.location.href = registerRoute;
     }
 
     render() {
@@ -34,7 +34,7 @@ class LoginPage extends React.Component {
             ce('h2', null, "Login: "),
             ce(LoginField, { submit: this.login }, null),
             ce('hr', null, null),
-            ce('h3', {onClick: e => this.handleRoute(e)}, "Create an Account ->", ce('i', {className: 'fa-long-arrow-right'}))
+            ce('h3', {className: 'shade-on-hover', onClick: this.handleRoute},"Create an account ->")
         )
     }
 }
@@ -42,5 +42,5 @@ class LoginPage extends React.Component {
 
 ReactDOM.render(
     React.createElement(LoginPage, {}, null),
-    document.getElementById('react-root')
+    document.getElementById('login-root')
 );

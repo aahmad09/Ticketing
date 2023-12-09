@@ -27,6 +27,7 @@ class AuthenticationController @Inject() (
   }
 
   def handleLogin = Action.async(parse.json) { implicit request =>
+    println(request.body)
     request.body
       .validate[LoginData]
       .fold(
@@ -34,7 +35,6 @@ class AuthenticationController @Inject() (
           Future.successful(
             BadRequest(
               Json.obj("status" -> "error", "message" -> "Invalid JSON format")
-              println(Json.obj)
             )
           ),
         loginData =>
@@ -42,7 +42,7 @@ class AuthenticationController @Inject() (
             case Some((userId, role)) =>
               Ok(
                 Json.obj("status" -> "success", "message" -> "Login successful")
-              ).withSession("email" -> loginData.email, "userId" -> userId.toString, "role" -> role)
+              )/*Redirect(routes.UserController.dashboard)*/.withSession("email" -> loginData.email, "userId" -> userId.toString, "role" -> role)
             case None =>
               BadRequest(
                 Json
