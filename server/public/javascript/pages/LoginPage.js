@@ -1,6 +1,12 @@
 import LoginField from '../components/LoginField.js'
 
+
 const ce = React.createElement
+
+const registerRoute = document.getElementById("RegisterRoute").value;
+const DashboardRoute = document.getElementById("DashboardRoute").value;
+
+
 class LoginPage extends React.Component {
     constructor(props) {
         super(props)
@@ -12,10 +18,14 @@ class LoginPage extends React.Component {
                 body: JSON.stringify(params)
             }).then(res => res.json()).then(data => {
                 if (data) {
-                    this.relocate("dashboard");
+                    fetch(DashboardRoute);
                 }
             })
         }
+    }
+
+    handleRoute(e) {
+        fetch(registerRoute);
     }
 
     render() {
@@ -24,7 +34,7 @@ class LoginPage extends React.Component {
             ce('h2', null, "Login: "),
             ce(LoginField, { submit: this.login }, null),
             ce('hr', null, null),
-            ce('h3', null, ce('a', { href: 'register' }, "Create an Account ->"), ce('i', {className: 'fa-long-arrow-right'}))
+            ce('h3', {onClick: e => this.handleRoute(e)}, "Create an Account ->", ce('i', {className: 'fa-long-arrow-right'}))
         )
     }
 }

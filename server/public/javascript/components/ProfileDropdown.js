@@ -1,5 +1,7 @@
 const ce = React.createElement
 
+const profilePicRoute = document.getElementById("profilePicRoute").value;
+
 class ProfileDropdown extends React.Component {
     constructor(props) {
         super(props)
@@ -21,7 +23,7 @@ class ProfileDropdown extends React.Component {
             )
         } else {
             return ce('div', {onClick: this.toggleDropdown}, 
-                "PROFILE PIC PLACEHOLDER",
+                ce('img',{src: "profilePicRoute"},""),
             )
         }
         

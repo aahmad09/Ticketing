@@ -3,7 +3,7 @@
 :root {
     --dark-brown: #3B2C26;
     --champagne: #EFE6D9;
-    --dark-green: #6A5D4C;
+    --dark-green: #94BE9A;
     --lighter-green: #C0DFC4;
     --orangey-red: #C85330;
     --lighter-orangey-red: #DD866C;
@@ -26,29 +26,29 @@ h2{
     font-size: 2rem;
 }
 button{
-    background-color: #04AA6D; /* Green */
+    background-color: whitesmoke; /* Green */
     border: none;
     color: dark-brown;
-    padding: 20px;
+    padding: 5px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
-    border: 30%;
+    border-radius: 25px;
+    width: 125px;
+    height: 25px;
 }
 /* Style the main login area */
 .login-area {
     margin: 0 auto;
-    display: inline-block;
     text-align: center;
     align-self: flex-start;
     justify-self: center;
     width: 100%;
     max-width: 500px;
     padding: 50px;
-    border: 1px solid var(--dark-brown);
     background-color: var(--champagne);
 }
 
@@ -74,6 +74,20 @@ button{
     background-color: var(--lighter-orangey-red);
 }
 
+.labeled_field > input {
+    margin: 20 px;
+    border-radius: 25px;
+    text-align: center;
+}
+
 input::placeholder {
     text-align: center;
+}
+
+.text_field {
+    margin: 10px;
+    width: 125px;
+    border-radius: 25px;
+    height: 25px;
+    border: none;
 }

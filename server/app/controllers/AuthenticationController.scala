@@ -41,7 +41,7 @@ class AuthenticationController @Inject() (
             case Some(userId) =>
               Ok(
                 Json.obj("status" -> "success", "message" -> "Login successful")
-              ).withSession("email" -> loginData.email, "userId" -> userId)
+              ).withSession("email" -> loginData.email, "userId" -> userId.toString())
             case None =>
               BadRequest(
                 Json
