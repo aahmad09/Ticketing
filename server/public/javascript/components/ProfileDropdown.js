@@ -15,8 +15,8 @@ class ProfileDropdown extends React.Component {
     render() {
         if (this.state.open) {
             return ce('div', {className: 'dropdown', onClick: this.toggleDropdown}, 
-                ce(DropdownLink, {name: 'Home', route: 'home'}, null),
-                ce(DropdownLink, {name: 'Create Event', route: 'home'}, null),
+                ce(DropdownLink, {name: 'Home', route: 'dashboard'}, null),
+                ce(DropdownLink, {name: 'Create Event', route: 'dashboard'}, null),
                 ce(DropdownLink, {name: 'Logout', route: 'login'}, null)
             )
         } else {
