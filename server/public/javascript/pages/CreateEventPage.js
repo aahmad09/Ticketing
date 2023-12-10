@@ -1,6 +1,4 @@
 import EventCreationField from '../components/EventCreationField.js';
-import LoginField from '../components/LoginField.js'
-
 
 const ce = React.createElement
 
@@ -18,9 +16,9 @@ class CreateEventPage extends React.Component {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(params)
-        }).then(res => res.json()).then(data => {
+        }).then(data => {
             if (data.ok) {
-                window.location.href = CreateEventRoute;
+                window.location.href = DashboardRoute;
             }
         })
     }
@@ -32,8 +30,8 @@ class CreateEventPage extends React.Component {
     render() {
         
         return ce('div', {className: "event-creation-page"}, 
-            ce(EventCreationField, {submit: this.handleSubmit}, null),
-            ce('div', {className: 'cancel-creation', onclick: this.handleCancel}, "Cancel")
+            ce('a', {className: 'cancel-creation', onClick: this.handleCancel}, "Cancel"),
+            ce(EventCreationField, {submit: this.handleSubmit}, null)
         )
     }
 }

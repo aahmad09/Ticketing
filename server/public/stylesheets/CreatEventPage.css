@@ -1,0 +1,10 @@
+.eventCreation_area {
+    margin: 0 auto;
+    text-align: center;
+    align-self: flex-start;
+    justify-self: center;
+    width: 100%;
+    max-width: 500px;
+    padding: 5%;
+    background-color: var(--periwinkle);
+}

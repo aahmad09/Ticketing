@@ -25,7 +25,12 @@
 .dropdown-link {
     outline: solid 1px #111111;
     width: 100%;
+    background-color: white;
+    border-radius: 25px;
+    text-align: center;
+    margin-bottom: 5px;
 }
+
 
 .dropdown-link:hover {
     background: #00000055;

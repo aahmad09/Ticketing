@@ -31,6 +31,10 @@ class UserController @Inject() (
     request.session.get("userId").map(_.toInt).map(f).getOrElse(Future.successful(Ok(Json.toJson(Seq.empty[String]))))
   }
 
+  def withSessionUserIdSync(f: Int => Result)(implicit request: Request[AnyContent]): Result = {
+    request.session.get("userId").map(_.toInt).map(f).getOrElse(Ok(Json.toJson(Seq.empty[String])))
+  }
+
   def withSessionRole(f: String => Future[Result])(implicit request: Request[AnyContent]): Future[Result] = {
     request.session.get("role").map(f).getOrElse(Future.successful(Ok(Json.toJson(Seq.empty[String]))))
   }
@@ -54,8 +58,8 @@ class UserController @Inject() (
     }
   }
 
-  def getUserId = Action.async { implicit request =>
-    withSessionUserId { userId => 
+  def getUserId = Action { implicit request =>
+    withSessionUserIdSync { userId => 
       Ok(Json.obj("userId" -> userId))
     }
   }

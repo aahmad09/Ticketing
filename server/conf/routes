@@ -25,6 +25,7 @@ GET        /getTicket/:ticketId                controllers.TicketsController.get
 # Events
 GET         /createEventPage                   controllers.EventsController.createEventPage
 POST        /createEvent                       controllers.EventsController.createEvent
+GET         /getAllEvents                      controllers.EventsController.listAllEvents
 
 # Organizer 
 

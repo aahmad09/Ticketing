@@ -4,7 +4,7 @@ class EventCreationField extends React.Component {
     constructor(props) {
         super(props)
         this.submit = props.submit
-        this.state = {orgId:"", eventId:"", name: "", date: "", location: "", description: ""}/*title, date, time, numTickets, description (and then waiver options) */
+        this.state = {orgId:-1, eventId:-1, name: "", date: "", location: "", description: "", image:""}/*title, date, time, numTickets, description (and then waiver options) */
         fetch('getUserId').then(res => res.json()).then(data => this.setState(s => {return {...s, orgId: data.userId}}))
     }
 /*
@@ -16,10 +16,12 @@ class EventCreationField extends React.Component {
     description: Option[String],
     image: Option[String]
   */
+ /*
     handleIdChange(e) {
         const val = e.target.value;
-        this.setState((s) => {return {...s, orgId: val}});
+        this.setState((s) => {return {...s, eventId: val}});
     }
+    */
     handleNameChange(e) {
         const val = e.target.value;
         this.setState((s) => {return {...s, name: val}});
@@ -30,42 +32,43 @@ class EventCreationField extends React.Component {
     }
     handleLocationChange(e) {
         const val = e.target.value;
-        this.setState((s) => {return {...s, time: val}});
+        this.setState((s) => {return {...s, location: val}});
     }
     handleDescriptionChange(e) {
         const val = e.target.value;
         this.setState((s) => {return {...s, description: val}});
     }
+    handleImageChange(e) {
+        const val = e.target.value;
+        this.setState((s) => {return {...s, image: val}});
+    }
     handleSubmit(e) {
-        this.submit({...this.state});
+        this.submit({...this.state, date: this.state.date + ":00"});
     }
 
     render() {
         return ce('div', {className: 'eventCreation_area'}, 
-        ce('div', {className: 'labeled_field'}, 
-                ce('[fix later] Event ID: ',{type:'label'}),
-                ce('input', {type: 'text', value: this.state.title, onChange: (e) => this.handleIdChange(e)}),
+            /*
+            ce('div', {className: 'labeled_field'}, 
+                ce('input', {className: 'text_field_create', type: 'text', placeholder:"EVENT ID", value: this.state.eventId, onChange: (e) => this.handleIdChange(e)}),
+            ), */
+            ce('div', {className: 'labeled_field'}, 
+                ce('input', {className: 'text_field_create', type: 'text', placeholder:"NAME OF EVENT", value: this.state.name, onChange: (e) => this.handleNameChange(e)}),
             ),
             ce('div', {className: 'labeled_field'}, 
-                ce('Event title: ',{type:'label'}),
-                ce('input', {type: 'text', value: this.state.title, onChange: (e) => this.handleNameChange(e)}),
+                ce('input', {className: 'text_field_create', type: 'text', pattern: '[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}', title: 'yyyy-mm-dd hh:mm',placeholder:"DATE: yyyy-mm-dd hh:mm", value: this.state.date, onChange: (e) => this.handleDateChange(e)}),
             ),
             ce('div', {className: 'labeled_field'}, 
-            ce('Date: ',{type:'label'}),
-                ce('input', {type: 'text', value: this.state.date, onChange: (e) => this.handleDateChange(e)}),
+                ce('input', {className: 'text_field_create', type: 'text', placeholder:"LOCATION", value: this.state.location, onChange: (e) => this.handleLocationChange(e)}),
             ),
             ce('div', {className: 'labeled_field'}, 
-            ce('Location: ',{type:'label'}),
-                ce('input', {type: 'text', value: this.state.lime, onChange: (e) => this.handleLocationChange(e)}),
-            ),ce('div', {className: 'labeled_field'}, 
-            ce('# of Tickets: ',{type:'label'}),
-                ce('input', {type: 'text', value: this.state.NumTickets, onChange: (e) => this.handleNumTicketsChange(e)}),
-            ),ce('div', {className: 'labeled_field'}, 
-            ce('Description: ',{type:'label'}),
-                ce('input', {type: 'text', value: this.state.description, onChange: (e) => this.handleDescriptionChange(e)}),
+                ce('input', {className: 'text_field_create', type: 'text', placeholder:"DESCRIPTION", value: this.state.description, onChange: (e) => this.handleDescriptionChange(e)}),
             ),
-            ce('button', {onClick: (e) => this.handleSubmit(e)}, "Submit"),
-        )
+            ce('div', {className: 'labeled_field'}, 
+                ce('input', {className: 'text_field_create', type: 'text', placeholder:"IMAGE", value: this.state.image, onChange: (e) => this.handleImageChange(e)}),
+            ),
+            ce('button', {className: 'login_button', onClick: (e) => this.handleSubmit(e)}, "SUBMIT"),
+        );
     }
 }
 
