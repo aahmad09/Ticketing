@@ -8,9 +8,7 @@
   --periwinkle: #BCB6FF;
   --lighter-periwinkle: #D7D3FF;
 }
-.shade-on-hover:hover {
-  background: #00000033;
-}
+
 body {
     background-color: #EFE6D9;
     font-family: 'Bebas Neue', sans-serif;

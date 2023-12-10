@@ -14,12 +14,17 @@ class RegistrationField extends React.Component {
 
     handleChange(field, e) {
         const val = e.target.value;
+        if(field === 'role') {
+            val.toLowerCase();
+        }
         this.setState((s) => ({ ...s, [field]: val }));
     }
 
     handleSubmit(e) {
         this.submit({ ...this.state });
     }
+    
+
 
     render() {
         return ce('div', null, 
@@ -33,9 +38,12 @@ class RegistrationField extends React.Component {
                 ce('input', {className: 'text_field', placeholder: 'PASSWORD', type: 'password', value: this.state.password, onChange: (e) => this.handleChange('password', e)}),
             ),
             ce('div', {className: 'labeled_field'}, 
-                ce('input', {className: 'text_field', type: 'text', placeholder: '', value: this.state.role, onChange: (e) => this.handleChange('role', e)}),
+                ce('select', {className: 'select_field', type: 'text', placeholder: 'ROLE', value: this.state.role, onChange: (e) => this.handleChange('role', e)},
+                ce('option', null, 'ATTENDEE'),
+                ce('option', null, 'ORGANIZER')
+                ),
             ),
-            ce('button', {className: 'login_button', onClick: (e) => this.handleSubmit(e)}, "Submit"),
+            ce('button', {className: 'login_button', onClick: (e) => this.handleSubmit(e)}, "SUBMIT"),
         );
     }
 }

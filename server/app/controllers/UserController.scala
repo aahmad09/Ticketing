@@ -39,9 +39,24 @@ class UserController @Inject() (
     request.session.get("role").map(f).getOrElse(Ok(Json.toJson(Seq.empty[String])))
   }
 
-  def getRole = Action {implicit request =>
-    withSessionRoleSync { role => 
-      Ok(Json.toJson(role))
+  def getProfileInfo = Action.async {implicit request =>
+    withSessionUserId { userId =>
+      userModel.getUserById(userId).map {
+        case Some(a) => Ok(Json.obj(
+          "role" -> a.role,
+          "name" -> a.name
+        ))
+        case None => Ok(Json.obj(
+          "role" -> "attendee",
+          "name" -> "NOT FOUND"
+        ))
+      }
+    }
+  }
+
+  def getUserId = Action.async { implicit request =>
+    withSessionUserId { userId => 
+      Ok(Json.obj("userId" -> userId))
     }
   }
 
