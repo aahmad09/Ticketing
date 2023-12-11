@@ -10,7 +10,6 @@ class ProfileDropdown extends React.Component {
         super(props)
         this.img = props.img
         this.state = {open: false, isOrganizer: props.isOrganizer}
-        console.log(this.state.isOrganizer)
         
     }
 
@@ -28,7 +27,7 @@ class ProfileDropdown extends React.Component {
             )
         } else {
             return ce('div', {onClick: this.toggleDropdown}, 
-                ce('img',{className: 'profile-pic', src: profilePicRoute}),
+                ce('img',{className: 'profile-pic', type: "image/png", src: profilePicRoute}),
                 null
             )
         }

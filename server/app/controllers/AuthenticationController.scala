@@ -27,7 +27,6 @@ class AuthenticationController @Inject() (
   }
 
   def handleLogin = Action.async(parse.json) { implicit request =>
-    println(request.body)
     request.body
       .validate[LoginData]
       .fold(

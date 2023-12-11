@@ -33,7 +33,7 @@ class TicketsController @Inject()(
   }
 
   // Action to register a user for an event and create a ticket
-  def registerForEvent(eventId: Int): Action[AnyContent] = Action.async { implicit request =>
+  def registerForEventTwo(eventId: Int): Action[AnyContent] = Action.async { implicit request =>
     withSessionUserId { userId =>
       createJsonResponse(ticketModel.registerForEvent(eventId, userId))
     }
