@@ -8,42 +8,39 @@ class RegistrationField extends React.Component {
             name: "",
             email: "",
             password: "",
-            role: ""
+            role: "attendee"
         };
     }
 
     handleChange(field, e) {
         const val = e.target.value;
-        if(field === 'role') {
-            val.toLowerCase();
-        }
         this.setState((s) => ({ ...s, [field]: val }));
     }
 
     handleSubmit(e) {
         this.submit({ ...this.state });
     }
-    
+
 
 
     render() {
-        return ce('div', null, 
-            ce('div', {className: 'labeled_field'}, 
-                ce('input', {className: 'text_field', type: 'text', placeholder: 'NAME', value: this.state.name, onChange: (e) => this.handleChange('name', e)}),
+        return ce('div', null,
+            ce('div', { className: 'labeled_field' },
+                ce('input', { className: 'text_field', type: 'text', placeholder: 'NAME', value: this.state.name, onChange: (e) => this.handleChange('name', e) }),
             ),
-            ce('div', {className: 'labeled_field'}, 
-                ce('input', {className: 'text_field', placeholder: 'EMAIL', type: 'text', value: this.state.email, onChange: (e) => this.handleChange('email', e)}),
+            ce('div', { className: 'labeled_field' },
+                ce('input', { className: 'text_field', placeholder: 'EMAIL', type: 'text', value: this.state.email, onChange: (e) => this.handleChange('email', e) }),
             ),
-            ce('div', {className: 'labeled_field'}, 
-                ce('input', {className: 'text_field', placeholder: 'PASSWORD', type: 'password', value: this.state.password, onChange: (e) => this.handleChange('password', e)}),
+            ce('div', { className: 'labeled_field' },
+                ce('input', { className: 'text_field', placeholder: 'PASSWORD', type: 'password', value: this.state.password, onChange: (e) => this.handleChange('password', e) }),
             ),
-            ce('div', {className: 'labeled_field'}, 
-                ce('select', {className: 'select_field', type: 'text', placeholder: 'ROLE', value: this.state.role, onChange: (e) => this.handleChange('role', e)},
-                ce('option', null, 'ATTENDEE'),
-                ce('option', null, 'ORGANIZER')
+            ce('div', { className: 'labeled_field' },
+                ce('select', { className: 'select_field', type: 'text', value: this.state.role, onChange: (e) => this.handleChange('role', e) },
+                    ce('option', { value: 'attendee' }, 'attendee'),
+                    ce('option', { value: 'organizer' }, 'organizer')
                 ),
             ),
-            ce('button', {className: 'login_button', onClick: (e) => this.handleSubmit(e)}, "SUBMIT"),
+            ce('button', { className: 'login_button', onClick: (e) => this.handleSubmit(e) }, "SUBMIT"),
         );
     }
 }

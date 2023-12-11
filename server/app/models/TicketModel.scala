@@ -40,8 +40,9 @@ class TicketModel(db: Database)(implicit ec: ExecutionContext) {
   }
 
   // Register a user for an event and create a ticket
-  def registerForEvent(eventId: Int, userId: Int): Future[Option[TicketData]] =
+  def registerForEvent(eventId: Int, userId: Int): Future[Option[TicketData]] = {
     generateTicket(eventId, userId)
+  }
 
   // Retrieve a specific ticket
   def getTicket(ticketId: Int): Future[Option[TicketData]] = {

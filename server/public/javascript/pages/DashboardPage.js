@@ -10,11 +10,9 @@ class DashboardPage extends React.Component {
         super(props)
         this.state = {tickets: [], role: "", openPopup: false, ticketData: null, events: []};
         fetch('viewTickets').then(res => res.json()).then(data => {
-            this.setState(s => {return {...s, tickets: data}})
+            //this.setState(s => {return {...s, tickets: data}})
             let registeredIds = data.map(t => t.eventId);
             fetch('getAllEvents').then(result => result.json()).then(allEvents => {
-                console.log(data)
-                console.log(allEvents)
                 console.log(allEvents.filter(ev => registeredIds.includes(ev.eventId)))
                 this.setState(s => {return {...s, events: allEvents.filter(ev => !registeredIds.includes(ev.eventId)), tickets: allEvents.filter(ev => registeredIds.includes(ev.eventId))}})
             })
@@ -26,7 +24,8 @@ class DashboardPage extends React.Component {
     }
 
     renderTicketPopup = (ticketId) => {
-        this.setState(s => {return {...s, openTicketPopup: true, ticketData: this.state.tickets.filter(ticket => ticket.ticketId === ticketId)[0]}})
+        console.log(this.state.tickets.filter(ticket => ticket.eventId === ticketId))
+        this.setState(s => {return {...s, openTicketPopup: true, ticketData: this.state.tickets.filter(ticket => ticket.eventId === ticketId)[0]}})
     }
 
     renderEventPopup = (eventId) => {
@@ -45,9 +44,11 @@ class DashboardPage extends React.Component {
                 )
             } else { return ce('div', {className: 'dashboard-body',style: {overflow: 'hidden'}},
                 ce('div', {className: 'top-bar'}, 
-                    ce('h2', null, "Hello, " + this.state.name + ". Manage or create your events:"),
+                    ce('h2', null, "Hello, " + this.state.name),
                     ce(ProfileDropdown, {isOrganizer: true}, null)
                 ),
+                ce('h3', null, "Manage or create your events:"),
+                ce('hr', null, null),
                 ce('h4', null, "My Events: "),
                 ce('div', {className: 'card-slider'}, 
                     this.state.events && this.state.events.filter(e => e.orgId === this.state.userId).map((ev) => ce(EventCard, {
@@ -72,34 +73,26 @@ class DashboardPage extends React.Component {
                 )
             } else { return ce('div', {className: 'dashboard-body',style: {overflow: 'hidden'}},
                 ce('div', {className: 'top-bar'}, 
-                    ce('h2', null, "Hello, " + this.state.name + ". Check out what’s going on around campus this week:"),
+                    ce('h2', null, "Hello, " + this.state.name),
                     (this.state.role === "attendee" && ce(ProfileDropdown, {isOrganizer: false}, null))
                 ),
+                ce('h3', null, "Check out what’s going on around campus this week:"),
+                ce('hr', null, null),
                 ce('h4', null, "My Events: "),
                 ce('div', {className: 'card-slider'}, 
-                    this.state.tickets.map(ticket => {
-                        (EventCard, {
+                    this.state.tickets.map(ev => {
+                        return ce(EventCard, {
                             key: ev.eventId,
                             ticketId: ev.eventId,
                             title: ev.name,
                             month: ev.date.slice(5, 7),
                             day: ev.date.slice(8, 10),
-                            togglePopup: this.renderEventPopup
+                            togglePopup: this.renderTicketPopup
                         }, null)
                     })
                 ),
-                ce('h4', null, "Upcoming: "),
-                ce('div', {className: 'card-slider'}, 
-                    this.state.events && this.state.events.map((ev) => ce(EventCard, {
-                        key: ev.eventId,
-                        ticketId: ev.eventId,
-                        title: ev.name,
-                        month: ev.date.slice(5, 7),
-                        day: ev.date.slice(8, 10),
-                        togglePopup: this.renderEventPopup
-                    }, null))
-                ),
-                ce('h4', null, "Past: "),
+                ce('hr', null, null),
+                ce('h4', null, "All Events: "),
                 ce('div', {className: 'card-slider'}, 
                     this.state.events && this.state.events.map((ev) => ce(EventCard, {
                         key: ev.eventId,

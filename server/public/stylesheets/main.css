@@ -120,21 +120,36 @@ body {
     font-size: 16px;
   }
 
-.cancel-button {
-  display: flex;
-  width: 100px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 25px;
-  height: 25px;
-  border: none;
-  font-size: 16px;
-  text-align: center;
-  background-color: var(--orangey-red);
-  position: relative;
-  top: 20px;
-  left: 20px;
-}
+  .cancel-button {
+    display: flex;
+    width: 100px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 25px;
+    height: 25px;
+    border: none;
+    font-size: 16px;
+    text-align: center;
+    background-color: var(--orangey-red);
+    position: relative;
+    top: 20px;
+    left: 20px;
+  }
+  .delete-button {
+    display: flex;
+    width: 100px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 25px;
+    height: 25px;
+    border: none;
+    font-size: 16px;
+    text-align: center;
+    background-color: var(--orangey-red);
+    position: relative;
+    left: 380px;
+  }
+    
 
 .purchase-button {
   display: flex;

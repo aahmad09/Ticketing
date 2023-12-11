@@ -43,17 +43,19 @@ class EventDetails extends React.Component {
         }).then(data => {
             if (data.ok) {
                 fetch("registerForEventTwo?" + encodeURIComponent("eventId") + "=" + encodeURIComponent(this.eventId)).then(res => {
-                    if (res.ok) {
                         window.location.href = DashboardRoute;
-                    }
+                    
                 })
             }
         })
-    }
+}
+
 
     render() {
         return ce('div', {className: 'eventDetail_area'}, 
             ce('button',{className:'cancel-button',onClick: (e) => this.close()}, "Cancel"),
+            this.organizer && ('button',{className:'delete-button',onClick: (e) => this.close()}, "Delete"),
+
             ce('div', {className: 'detail'}, 
                 ce('h4', {className: 'detail_text'},this.orgId),
             ),
@@ -72,7 +74,7 @@ class EventDetails extends React.Component {
             ce('div', {className: 'detail'}, 
                 ce('h4', {className: 'detail_text'},this.image),
             ),
-            ce('button',{className:'purchase-button',onClick: this.handleSubmit}, "Register for event")
+            ce('button',{className:'purchase-button',onClick: this.handleSubmit}, !this.isTicket ? "Register for event" : "Unregister")
            
         );
     }

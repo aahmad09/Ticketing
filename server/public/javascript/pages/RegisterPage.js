@@ -10,21 +10,23 @@ class RegisterPage extends React.Component {
     constructor(props) {
         super(props)
         this.relocate = props.relocate;
-
         this.newUser = (params) => {
             fetch("handleRegistration", {
                 method: "POST",
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(params)
             }).then(res => res.json()).then(data => {
-                if (data) {
+                if (data.status === "success") {
                     console.log(data);
-                    fetch(DashboardRoute);
+                    window.location.href = DashboardRoute; // Redirect to dashboard
                 } else {
-                    fetch(LoginRoute);
+                    window.location.href = LoginRoute; // Redirect to login page
                 }
-            })
+            }).catch(error => {
+                console.error('Error:', error);
+            });
         }
+        
     }
 
     render() {
