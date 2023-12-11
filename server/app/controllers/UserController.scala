@@ -48,11 +48,13 @@ class UserController @Inject() (
       userModel.getUserById(userId).map {
         case Some(a) => Ok(Json.obj(
           "role" -> a.role,
-          "name" -> a.name
+          "name" -> a.name,
+          "userId" -> userId
         ))
         case None => Ok(Json.obj(
           "role" -> "attendee",
-          "name" -> "NOT FOUND"
+          "name" -> "NOT FOUND",
+          "userId" -> userId
         ))
       }
     }

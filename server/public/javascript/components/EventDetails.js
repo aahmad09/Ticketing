@@ -1,9 +1,23 @@
 const ce = React.createElement
 
+const DashboardRoute = document.getElementById("DashboardRoute").value;
+
+const getEventColor = (eventMonth, eventDay) => { //yyyy-mm-dd hh:mm:ss
+    let currentDate = new Date()
+    let currentMonth = currentDate.getMonth() + 1
+    let currentDay = currentDate.getDate()
+    if (currentDay < eventDay && (currentMonth < eventMonth || currentMonth === eventMonth)) {
+        return '#BCB6FF'
+    } else if (currentDay === eventDay && currentMonth === eventMonth) {
+        return '#94BE9A'
+    } else {
+        return '#C85330'
+    }
+}
+
 class EventDetails extends React.Component {
     constructor(props) {
         super(props)
-        console.log(props.data)
         this.ticketId = props.data.ticketId
         this.eventId = props.data.eventId
         this.orgId = props.data.orgId
@@ -11,17 +25,35 @@ class EventDetails extends React.Component {
         this.image = props.data.image
         this.location = props.data.location
         this.description = props.data.description
-        this.date = props.data.date
-        this.color = props.data.color
-        this.togglePopup = props.data.togglePopup
+        this.month = props.data.date.slice(5, 7)
+        this.day = props.data.date.slice(8, 10)
+        this.color = getEventColor(this.month, this.day)
+        this.isTicket = props.isTicket
+        this.close = props.close
+        this.organizer = props.organizer
+        this.username = props.username
+        this.userId = props.userId
     }
 
-    handlePurchase(){
-        TODO
+    handleSubmit = () => {
+        fetch("registerForEvent", {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({userId: this.userId, eventId: this.eventId})
+        }).then(data => {
+            if (data.ok) {
+                fetch("registerForEventTwo?" + encodeURIComponent("eventId") + "=" + encodeURIComponent(this.eventId)).then(res => {
+                    if (res.ok) {
+                        window.location.href = DashboardRoute;
+                    }
+                })
+            }
+        })
     }
+
     render() {
         return ce('div', {className: 'eventDetail_area'}, 
-            /*translate between orgID and org name here */ 
+            ce('button',{className:'cancel-button',onClick: (e) => this.close()}, "Cancel"),
             ce('div', {className: 'detail'}, 
                 ce('h4', {className: 'detail_text'},this.orgId),
             ),
@@ -40,7 +72,7 @@ class EventDetails extends React.Component {
             ce('div', {className: 'detail'}, 
                 ce('h4', {className: 'detail_text'},this.image),
             ),
-            ce('button',{className:'purchase-buttton',onClick: (e) => this.handlePurchase(e)},"purchase a ticket ->")
+            ce('button',{className:'purchase-button',onClick: this.handleSubmit}, "Register for event")
            
         );
     }

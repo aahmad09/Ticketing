@@ -17,18 +17,17 @@ GET        /dashboard                          controllers.UserController.dashbo
 GET        /viewTickets                        controllers.UserController.viewTickets
 GET        /getProfileInfo                     controllers.UserController.getProfileInfo
 GET        /getUserId                          controllers.UserController.getUserId
+POST       /registerForEvent                   controllers.UserController.registerForEvent
 
 # Tickets
-POST       /registerForEvent/:eventId          controllers.TicketsController.registerForEvent(eventId: Int)
+GET       /registerForEventTwo/:eventId          controllers.TicketsController.registerForEvent(eventId: Int)
 GET        /getTicket/:ticketId                controllers.TicketsController.getTicket(ticketId: Int)
 
 # Events
 GET         /createEventPage                   controllers.EventsController.createEventPage
 POST        /createEvent                       controllers.EventsController.createEvent
 GET         /getAllEvents                      controllers.EventsController.listAllEvents
-
-# Organizer 
-
+GET         /getEventById/:eventId             controllers.EventsController.viewEvent(eventId: Int)
 
 # Assets
 # Prefix must match `play.assets.urlPrefix`

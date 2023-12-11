@@ -60,3 +60,95 @@ body {
   header a:hover {
     color: #BCB6FF; /*Adjust the color on hover as needed */
   }
+
+  .event-creation-page {
+    margin: 10% auto 5px auto;
+    text-align: center;
+    align-self: flex-start;
+    justify-self: center;
+    width: 100%;
+    max-width: 500px;
+    background-color: var(--periwinkle);
+    border-radius: 25px;
+}
+
+.cancel-creation {
+    display: flex;
+    width: 100px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 25px;
+    height: 25px;
+    border: none;
+    font-size: 16px;
+    text-align: center;
+    background-color: var(--orangey-red);
+    position: relative;
+    top: 20px;
+    left: 20px;
+}
+
+.text_field_create {
+
+    margin: 10px;
+    width: 200px;
+    border-radius: 25px;
+    height: 25px;
+    border: none;
+    font-size: 16px;
+
+}
+
+
+  .eventDetail_area {
+    margin: 10% auto 5px auto;
+    text-align: center;
+    align-self: flex-start;
+    justify-self: center;
+    width: 100%;
+    max-width: 500px;
+    background-color: var(--periwinkle);
+    border-radius: 25px;
+  }
+
+  .details {
+    margin: 10px;
+    width: 150px;
+    border-radius: 25px;
+    height: 25px;
+    border: none;
+    font-size: 16px;
+  }
+
+.cancel-button {
+  display: flex;
+  width: 100px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 25px;
+  height: 25px;
+  border: none;
+  font-size: 16px;
+  text-align: center;
+  background-color: var(--orangey-red);
+  position: relative;
+  top: 20px;
+  left: 20px;
+}
+
+.purchase-button {
+  display: flex;
+  width: 150px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 25px;
+  height: 25px;
+  border: none;
+  font-size: 16px;
+  text-align: center;
+  background-color: var(--dark-green);
+  position: relative;
+  left: 330px;
+  bottom: 20px;
+
+}
