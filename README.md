@@ -1,7 +1,5 @@
-# play-scalajs-slinky
+# WebApps Final Group Project Fall 2023
 
-This is my starter project for things that involve Play using Scala.js and
-the Slinky React binding. I'm using this as the starter for student code in
-Web Apps Spring 2021.
+By Cade Harger, Asjal Ahmad, Cole Lee, and Kai Kallingal
 
-# the user controller is used for everything pertaining to attendees & event organizer profiles
+Trinevents is a campus event management web app that allows organizers to create events and users to sign up for them. Trinevents is built with React.js, Scala Play, and PostgreSQL.
